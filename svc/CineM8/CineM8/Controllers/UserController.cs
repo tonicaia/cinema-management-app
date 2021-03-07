@@ -14,7 +14,7 @@ namespace CineM8.Controllers
         [HttpGet]
         public IEnumerable<string> GetAllUsers()
         {
-            return new string[] { "toni", "caia" };
+            return new string[] { "toni", "caia","exemplu" };
         }
     }
 }

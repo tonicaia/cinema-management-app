@@ -25,7 +25,14 @@ namespace CineM8
            name: "Users",
            routeTemplate: "api/users/{id}",
            defaults: new { controller = "user", id = RouteParameter.Optional }
-       ); 
+       );
+
+            //movie route
+            config.Routes.MapHttpRoute(
+           name: "Movie",
+           routeTemplate: "api/movie/{id}",
+           defaults: new { controller = "movie", id = RouteParameter.Optional }
+       );
         }
     }
 }
