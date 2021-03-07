@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CineM8.Models
 {
-    class User
+    public class User
     {
         private int id;
         private string firstName;
@@ -16,6 +16,11 @@ namespace CineM8.Models
         private string cardNb;
         private bool isAdmin;
 
+
+        public User()
+        {
+            
+        }
         public User(string firstName, string lastName, string email, string password, string phoneNb, string cardNb, bool isAdmin)
         {
             this.firstName = firstName;
