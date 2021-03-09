@@ -16,6 +16,10 @@ namespace CineM8.Models
         private string cardNb;
         private bool isAdmin;
 
+        public User()
+        {
+
+        }
         public User(string firstName, string lastName, string email, string password, string phoneNb, string cardNb, bool isAdmin)
         {
             this.firstName = firstName;

@@ -14,7 +14,7 @@ namespace CineM8.DAL
         public void OpenConnection()
         {
             conn = new MySqlConnection();
-            conn.ConnectionString = "Server=localhost;Database=cinemadb;Uid=root;Pwd=root;";
+            conn.ConnectionString = "Server=localhost;Database=cinemadb;Uid=root;Pwd=root;Allow User Variables=True"; // alow user variables  https://stackoverflow.com/questions/22597617/parameter-myleft-must-be-defined
             try
             {
                 conn.Open();
@@ -22,6 +22,7 @@ namespace CineM8.DAL
             }
             catch (Exception e)
             {
+                Console.WriteLine("DB connect error!");
                 Console.WriteLine("Error: {0}", e.ToString());
             }
         }
