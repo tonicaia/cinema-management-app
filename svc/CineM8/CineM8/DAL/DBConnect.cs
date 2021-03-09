@@ -1,10 +1,10 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Diagnostics;
+using MySqlConnector;
 
 namespace CineM8.DAL
 {

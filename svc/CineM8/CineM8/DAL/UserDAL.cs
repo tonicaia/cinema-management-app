@@ -1,5 +1,5 @@
 ﻿using CineM8.Models;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,6 +29,7 @@ namespace CineM8.DAL
                 string cardNumber = dr["cardNumber"].ToString();
                 bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
                 User user = new User(firstName,lastName,email,password,phoneNumber,cardNumber,isAdmin);
+                user.Id = Convert.ToInt32(dr["userId"]);
 
                 users.Add(user);
             }
@@ -77,6 +78,7 @@ namespace CineM8.DAL
                 string cardNumber = dr["cardNumber"].ToString();
                 bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
                 User user = new User(firstName, lastName, email, password, phoneNumber, cardNumber, isAdmin);
+                user.Id = id;
 
                 users.Add(user);
             }

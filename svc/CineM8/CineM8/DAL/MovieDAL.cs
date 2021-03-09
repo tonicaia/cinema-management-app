@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using CineM8.Models;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace CineM8.DAL
 {
