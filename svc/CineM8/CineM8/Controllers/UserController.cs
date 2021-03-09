@@ -3,7 +3,6 @@ using CineM8.Models;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Results;
-using AutoMapper;
 
 namespace CineM8.Controllers
 {
@@ -17,20 +16,17 @@ namespace CineM8.Controllers
         [Route("getUsers")]
         public JsonResult<List<User>> GetAllUsers()
         {
-            dBConnect = new DBConnect();
-            dBConnect.OpenConnection();
-            userDAL = new UserDAL();
-            Dictionary<User, User> mapObj = new Dictionary<User, User>();
-            List<User> prodList = userDAL.GetAllUsers();
-            List<User> users = new List<User>();
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, User>());
-            var mapper = new Mapper(config);
-            foreach (var item in prodList)
-            {
-                users.Add(mapper.Map<Models.User>(item));
-            }
-            dBConnect.CloseConnection();
-            return Json<List<User>>(users);
+                dBConnect = new DBConnect();
+                dBConnect.OpenConnection();
+                userDAL = new UserDAL();
+
+                List<User> users = new List<User>();
+
+                users = userDAL.GetAllUsers();
+
+                dBConnect.CloseConnection();
+                return Json<List<User>>(users);
+
         }
 
         [HttpGet]

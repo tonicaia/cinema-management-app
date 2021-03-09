@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CineM8.Models
+﻿namespace CineM8.Models
 {
     public class Movie
     {
