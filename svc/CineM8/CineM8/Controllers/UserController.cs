@@ -1,29 +1,107 @@
 ﻿using CineM8.DAL;
 using CineM8.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Diagnostics;
+using System.Web.Http.Results;
+using AutoMapper;
 
 namespace CineM8.Controllers
 {
+    [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
         DBConnect dBConnect;
         UserDAL userDAL;
+
         [HttpGet]
-        public IEnumerable<string> GetAllUsers()
+        [Route("getUsers")]
+        public JsonResult<List<User>> GetAllUsers()
         {
+            dBConnect = new DBConnect();
+            dBConnect.OpenConnection();
+            userDAL = new UserDAL();
+            Dictionary<User, User> mapObj = new Dictionary<User, User>();
+            List<User> prodList = userDAL.GetAllUsers();
             List<User> users = new List<User>();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, User>());
+            var mapper = new Mapper(config);
+            foreach (var item in prodList)
+            {
+                users.Add(mapper.Map<Models.User>(item));
+            }
+            dBConnect.CloseConnection();
+            return Json<List<User>>(users);
+        }
+
+        [HttpGet]
+        [Route("readUser")]
+        public JsonResult<List<User>> ReadUser()
+        {
             userDAL = new UserDAL();
             dBConnect = new DBConnect();
             dBConnect.OpenConnection();
-            users = userDAL.GetAllUsers();
+            List<User> users = new List<User>();
+            users = userDAL.readUser(1);
             dBConnect.CloseConnection();
-            return new string[] { users[0].FirstName, users[0].Id.ToString()};
+            return Json<List<User>>(users);
         }
+
+
+        [HttpPost]
+        [Route("PostNewUser")]
+        public void PostNewUser()
+        {
+            userDAL = new UserDAL();
+            dBConnect = new DBConnect();
+            dBConnect.OpenConnection();
+            User user = new User("Filimon", "Bogdan", "filimonbogdan89@gmail.com", "parola", "0751409660", "402", true);
+            userDAL.createUser(user);
+            dBConnect.CloseConnection();
+        }
+
+        [HttpDelete]
+        [Route("DeleteUser")]
+        public JsonResult<string> DeleteUser()
+        {
+            userDAL = new UserDAL();
+            dBConnect = new DBConnect();
+            dBConnect.OpenConnection();
+            userDAL.deleteUser(2);
+            string message = "User Deleted Succesfully!";
+            dBConnect.CloseConnection();
+            return Json<string>(message);
+        }
+
+        [HttpPut]
+        [Route("UpdateUser")]
+        public JsonResult<string> UpdateUser()
+        {
+            userDAL = new UserDAL();
+            dBConnect = new DBConnect();
+            dBConnect.OpenConnection();
+            User user = new User("Filimon", "Bogdanus", "filimonbogdan89@gmail.com", "parola", "0751409660", "402", true);
+            userDAL.updateUser(1,user);
+            string message = "User Updated Succesfully!";
+            dBConnect.CloseConnection();
+            return Json<string>(message);
+        }
+
+        /* TEST METHOD   
+         *    public IEnumerable<string> GetAllUserss()
+              {
+                  List<User> users = new List<User>();
+                  userDAL = new UserDAL();
+                  dBConnect = new DBConnect();
+                  dBConnect.OpenConnection();
+                  users = userDAL.GetAllUsers();
+                  dBConnect.CloseConnection();
+                  List<string> list = new List<string>();
+                  foreach (User usr in users)
+                  {
+                      list.Add(usr.FirstName);
+                  }
+
+                  return list;
+              }*/
     }
 }
