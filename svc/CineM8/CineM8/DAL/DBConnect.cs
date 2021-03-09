@@ -14,7 +14,7 @@ namespace CineM8.DAL
         public void OpenConnection()
         {
             conn = new MySqlConnection();
-            conn.ConnectionString = "Server=localhost;Database=StudentDatabase;Uid=root;Pwd=root;";
+            conn.ConnectionString = "Server=localhost;Database=cinemadb;Uid=root;Pwd=root;";
             try
             {
                 conn.Open();
