@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.6.0",
+      "destination": "lib/twitter-bootstrap/"
+    },
+    {
+      "library": "bootstrap-table@1.18.2",
+      "destination": "Scripts/bootstrap-table/",
+      "files": [
+        "bootstrap-table.min.js",
+        "bootstrap-table.js"
+      ]
+    }
+  ]
+}

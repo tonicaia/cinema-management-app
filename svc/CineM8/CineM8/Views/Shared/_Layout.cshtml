@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/lib/twitter-bootstrap/css")
     @Scripts.Render("~/bundles/modernizr")
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,6 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
@@ -36,6 +39,10 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/admin.js")
+    @Scripts.Render("~/lib/twitter-bootstrap/js")
+    @Scripts.Render("~/Scripts/bootstrap-table.js")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

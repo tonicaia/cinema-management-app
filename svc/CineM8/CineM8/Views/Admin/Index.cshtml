@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Admin";
+}
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js">
+</script>
+<div class="page-header">
+    <h1>Admin View <small>Hello name, you are currently logged in as an admin</small></h1>
+</div>
+
+<!-- Nav pills -->
+<ul class="nav nav-pills">
+    <li class="navbar-brand">
+        Manage
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#users">Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#movies">Movies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#halls">Halls</a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane container active" id="users">
+        <div class="alert alert-info">
+            <strong>Manage Users : </strong> This tab is used to manage the registered users
+        </div>
+        <table id="users-table" class="table table-hover">
+            <thead>
+                <tr>
+                    <th data-field="Id">Id</th>
+                    <th data-field="FirstName">Firstname</th>
+                    <th data-field="LastName">Lastname</th>
+                    <th data-field="Email">Email</th>
+                    <th><button>ok</button></th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+    <div class="tab-pane container fade" id="movies">
+        <div class="alert alert-info">
+            <strong>Manage Movies : </strong> This tab is used to manage the listed movies
+        </div>
+    </div>
+    <div class="tab-pane container fade" id="halls">
+        <div class="alert alert-info">
+            <strong>Manage Halls : </strong> This tab is used to manage the cinema halls
+        </div>
+    </div>
+</div>
+
+
+
+<button class="btn-danger" onclick="fillUsersTable()">
+    Test
+</button>
