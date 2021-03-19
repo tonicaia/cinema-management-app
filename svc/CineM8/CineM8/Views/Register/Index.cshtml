@@ -1,0 +1,86 @@
+﻿@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Register</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <!-- <form class="form-horizontal" action='' method="POST">-->
+    <fieldset>
+        <div id="legend">
+            <legend class="">Register</legend>
+        </div>
+        <div class="control-group">
+            <!-- First Name -->
+            <label class="control-label" for="first-name">First Name</label>
+            <div class="controls">
+                <input type="text" id="first-name" name="first-name" placeholder="Your First Name" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Last Name -->
+            <label class="control-label" for="last-name">Last Name</label>
+            <div class="controls">
+                <input type="text" id="last-name" name="last-name" placeholder="Your Last Name" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                <p class="help-block">Password should be at least 4 characters</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password -->
+            <label class="control-label" for="password_confirm">Password (Confirm)</label>
+            <div class="controls">
+                <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+                <p class="help-block">Please confirm password</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- phoneNb -->
+            <label class="control-label" for="phone-number">Phone Number</label>
+            <div class="controls">
+                <input type="number" id="phone-number" name="phone-number" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- cardNb -->
+            <label class="control-label" for="card-number">Card Number</label>
+            <div class="controls">
+                <input type="number" id="card-number" name="card-number" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+                <button class="btn btn-success" onclick="addItem()">Register</button>
+            </div>
+        </div>
+    </fieldset>
+    <!--</form>-->
+    </body>
+    </html>

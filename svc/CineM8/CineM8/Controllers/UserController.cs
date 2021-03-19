@@ -1,6 +1,7 @@
 ﻿using CineM8.DAL;
 using CineM8.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -9,75 +10,80 @@ namespace CineM8.Controllers
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
-        DBConnect dBConnect;
-        UserDAL userDAL;
+        static DBConnect dBConnect = new DBConnect();
+        static UserDAL userDAL = new UserDAL();
 
         [HttpGet]
-        [Route("getUsers")]
+        [Route("getAll")]
         public JsonResult<List<User>> GetAllUsers()
         {
-                dBConnect = new DBConnect();
                 dBConnect.OpenConnection();
-                userDAL = new UserDAL();
-
                 List<User> users = new List<User>();
-
                 users = userDAL.GetAllUsers();
-
                 dBConnect.CloseConnection();
                 return Json<List<User>>(users);
 
         }
 
         [HttpGet]
-        [Route("readUser")]
-        public JsonResult<List<User>> ReadUser()
+        [Route("get/{userId}")]
+        public JsonResult<List<User>> GetUser(int userId)
         {
-            userDAL = new UserDAL();
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             List<User> users = new List<User>();
-            users = userDAL.readUser(1);
+            users = userDAL.readUser(userId);
             dBConnect.CloseConnection();
             return Json<List<User>>(users);
         }
 
 
         [HttpPost]
-        [Route("PostNewUser")]
-        public void PostNewUser()
+        [Route("create")]
+        public JsonResult<string> CreateUser(User user)
         {
-            userDAL = new UserDAL();
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
-            User user = new User("Filimon", "Bogdan", "filimonbogdan89@gmail.com", "parola", "0751409660", "402", true);
             userDAL.createUser(user);
             dBConnect.CloseConnection();
+            return Json<string>("Succesfully!");
         }
 
         [HttpDelete]
-        [Route("DeleteUser")]
-        public JsonResult<string> DeleteUser()
+        [Route("delete/{userId}")]
+        public JsonResult<string> DeleteUser(int userId)
         {
-            userDAL = new UserDAL();
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
-            userDAL.deleteUser(2);
+            userDAL.deleteUser(userId);
             string message = "User Deleted Succesfully!";
             dBConnect.CloseConnection();
             return Json<string>(message);
         }
 
         [HttpPut]
-        [Route("UpdateUser")]
-        public JsonResult<string> UpdateUser()
+        [Route("update")]
+        public JsonResult<string> UpdateUser(int userId, User user)
         {
-            userDAL = new UserDAL();
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
-            User user = new User("Filimon", "Bogdanus", "filimonbogdan89@gmail.com", "parola", "0751409660", "402", true);
-            userDAL.updateUser(1,user);
+            userDAL.updateUser(userId,user);
             string message = "User Updated Succesfully!";
+            dBConnect.CloseConnection();
+            return Json<string>(message);
+        }
+
+        [HttpGet]
+        [Route("login")]
+        public JsonResult<string> LoginUser(string email, string pass)
+        {
+            string message = "";
+            dBConnect.OpenConnection();
+            if (userDAL.login(email, pass) == true)
+            {
+                message = "Login Succesfully!";
+            }
+            else
+            {
+                message = "Login Failed!";
+            }
+
             dBConnect.CloseConnection();
             return Json<string>(message);
         }
@@ -86,8 +92,6 @@ namespace CineM8.Controllers
          *    public IEnumerable<string> GetAllUserss()
               {
                   List<User> users = new List<User>();
-                  userDAL = new UserDAL();
-                  dBConnect = new DBConnect();
                   dBConnect.OpenConnection();
                   users = userDAL.GetAllUsers();
                   dBConnect.CloseConnection();

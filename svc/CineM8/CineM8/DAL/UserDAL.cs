@@ -125,5 +125,59 @@ namespace CineM8.DAL
             }
 
         }
+
+        public bool login(string Email, string Pass)
+        {
+            List<User> users = new List<User>();
+            string query = "SELECT * FROM Users where email = " + Email;
+            MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "Users");
+            DataTable dt = ds.Tables["Users"];
+
+            foreach (DataRow dr in dt.Rows) // itereaza o singura data
+            {
+                string firstName = dr["FirstName"].ToString();
+                string lastName = dr["LastName"].ToString();
+                string email = dr["email"].ToString();
+                string password = dr["pass"].ToString();
+                string phoneNumber = dr["phoneNumber"].ToString();
+                string cardNumber = dr["cardNumber"].ToString();
+                bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
+                User user = new User(firstName, lastName, email, password, phoneNumber, cardNumber, isAdmin);
+                user.Id = Convert.ToInt32(dr["userId"]);
+                users.Add(user);
+                Debug.WriteLine(email + " " + Email + " " + password + " " + Pass);
+                email ="\"" + email + "\"";
+                password = "\"" + password + "\"";
+                if (email.Equals(Email.ToString()) && password.Equals(Pass.ToString()))
+                {
+                    Debug.WriteLine(email);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool isExistingAccount(string Email, string Pass)
+        {
+            List<User> users = new List<User>();
+            string query = "SELECT * FROM Users where email = " + Email;
+            MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "Users");
+            DataTable dt = ds.Tables["Users"];
+
+            foreach (DataRow dr in dt.Rows) // itereaza o singura data
+            {
+                string email = dr["email"].ToString();
+                email = "\"" + email + "\"";
+                if (email.Equals(Email.ToString()));
+                {
+                    return true;
+                }
+            }
+                return false;
+        }
     }
 }
