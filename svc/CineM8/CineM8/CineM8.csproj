@@ -352,6 +352,7 @@
     <Content Include="lib\twitter-bootstrap\scss\utilities\_visibility.scss" />
     <Content Include="lib\twitter-bootstrap\scss\vendor\_rfs.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

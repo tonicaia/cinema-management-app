@@ -19,26 +19,33 @@ function fillUsersTable() {
         columns: [{}, {}, {}, {},
         {
             field: 'operate',
-            title: 'Edit',
+            title: 'Manage',
             align: 'center',
             valign: 'middle',
             clickToSelect: false,
-            formatter: function (value, row, index) {
-                //return '<input name="elementname"  value="'+value+'"/>';
-                return '<button class=\'btn btn-primary \' pageName="' + row.name + '" pageDetails="' + row.price + '"  > Edit </button> ';
-            }
-        }
-        ]
+            events: window.operateEvents,
+            formatter: operateFormatter
+            
+        }]
     });
-    //$('#users-table').bootstrapTable('load', users);
 }
 
-$(".btn").click(function () {
-    alert("LIK");
-    var pageDetails = $(this).attr('pageDetails');
-    var pageName = $(this).attr('pageName');
-    $(".modal .modal-title").html(pageName);
-    $(".modal .modal-body").html(pageDetails);
-    $(".modal").modal("show");
+function operateFormatter(value, row, index) {
+    return [
+        '<button class="btn btn-info editUser">',
+        '<span class= "glyphicon glyphicon-edit" ></span >',
+        '</button > ',
+        '<button class="btn btn-outline-danger removeUser">',
+        '<span class= "glyphicon glyphicon-trash" ></span >',
+        '</button >'
+    ].join('')
+}
 
-});
+window.operateEvents = {
+    'click .editUser': function (e, value, row, index) {
+        alert('You are editing row: ' + JSON.stringify(row))
+    },
+    'click .removeUser': function (e, value, row, index) {
+        alert("delete this");
+    }
+}
