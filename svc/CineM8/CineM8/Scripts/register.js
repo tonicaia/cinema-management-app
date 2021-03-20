@@ -1,7 +1,4 @@
-﻿const USERS_URL = 'api/user';
-let users = [];
-
-function getItems() {
+﻿function getItems() {
     fetch(USERS_URL + "/getall")
         .then(response => response.json())
         .then(data => console.log(data))

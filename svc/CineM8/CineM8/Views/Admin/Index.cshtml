@@ -29,14 +29,13 @@
         <div class="alert alert-info">
             <strong>Manage Users : </strong> This tab is used to manage the registered users
         </div>
-        <table id="users-table" class="table table-hover">
+        <table id="users-table" class="table table-hover" data-search="true">
             <thead>
                 <tr>
                     <th data-field="Id">Id</th>
                     <th data-field="FirstName">Firstname</th>
                     <th data-field="LastName">Lastname</th>
                     <th data-field="Email">Email</th>
-                    <th><button>ok</button></th>
                 </tr>
             </thead>
 
@@ -54,8 +53,3 @@
     </div>
 </div>
 
-
-
-<button class="btn-danger" onclick="fillUsersTable()">
-    Test
-</button>

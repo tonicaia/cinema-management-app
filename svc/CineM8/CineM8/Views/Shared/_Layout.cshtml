@@ -7,7 +7,6 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/lib/twitter-bootstrap/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/register.js")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Ii cu copyrights ba !</p>
+            <p>&copy; @DateTime.Now.Year - Proiect II</p>
         </footer>
     </div>
 
@@ -45,6 +44,8 @@
     @Scripts.Render("~/Scripts/admin.js")
     @Scripts.Render("~/lib/twitter-bootstrap/js")
     @Scripts.Render("~/Scripts/bootstrap-table.js")
+    @Scripts.Render("~/Scripts/constants.js")
+    @Scripts.Render("~/Scripts/register.js")
     @RenderSection("scripts", required: false)
 
 </body>
