@@ -159,7 +159,29 @@ namespace CineM8.DAL
             return false;
         }
 
-        public bool isExistingAccount(string Email, string Pass)
+        public bool isExistingAccount(string Email)
+        {
+            List<User> users = new List<User>();
+            MySqlCommand comm = DBConnect.conn.CreateCommand();
+            comm.CommandText = "Select * from Users where email = @Email";
+            comm.Parameters.AddWithValue("@Email", Email);
+            Debug.WriteLine(Email);
+            Debug.WriteLine(comm.ExecuteNonQuery());
+
+            try
+            {
+                if (comm.ExecuteNonQuery() > 0)
+                    return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Verify User Error!");
+                Console.WriteLine("Error: {0}", e.ToString());
+            }
+            return false;
+        }
+
+        public List<User> findUser(string Email)
         {
             List<User> users = new List<User>();
             string query = "SELECT * FROM Users where email = " + Email;
@@ -168,16 +190,23 @@ namespace CineM8.DAL
             da.Fill(ds, "Users");
             DataTable dt = ds.Tables["Users"];
 
-            foreach (DataRow dr in dt.Rows) // itereaza o singura data
+            foreach (DataRow dr in dt.Rows)
             {
+                int id = Convert.ToInt32(dr["userId"]);
+                string firstName = dr["FirstName"].ToString();
+                string lastName = dr["LastName"].ToString();
                 string email = dr["email"].ToString();
-                email = "\"" + email + "\"";
-                if (email.Equals(Email.ToString()));
-                {
-                    return true;
-                }
+                string password = dr["pass"].ToString();
+                string phoneNumber = dr["phoneNumber"].ToString();
+                string cardNumber = dr["cardNumber"].ToString();
+                bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
+                User user = new User(firstName, lastName, email, password, phoneNumber, cardNumber, isAdmin);
+                user.Id = id;
+
+                users.Add(user);
             }
-                return false;
+
+            return users;
         }
     }
 }

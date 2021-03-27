@@ -29,9 +29,21 @@ namespace CineM8.Controllers
         [Route("get/{userId}")]
         public JsonResult<List<User>> GetUser(int userId)
         {
-            dBConnect.OpenConnection();
             List<User> users = new List<User>();
+            dBConnect.OpenConnection();
             users = userDAL.readUser(userId);
+            dBConnect.CloseConnection();
+            return Json<List<User>>(users);
+        }
+
+        [HttpGet]
+        [Route("find/{email}")]
+        
+        public JsonResult<List<User>> FindUser(string email)
+        {
+            List<User> users = new List<User>();
+            dBConnect.OpenConnection();
+            users = userDAL.findUser(email);
             dBConnect.CloseConnection();
             return Json<List<User>>(users);
         }
@@ -42,6 +54,10 @@ namespace CineM8.Controllers
         public JsonResult<string> CreateUser(User user)
         {
             dBConnect.OpenConnection();
+            Debug.WriteLine(user.Email);
+            Debug.WriteLine(userDAL.isExistingAccount(user.Email));
+            if (userDAL.isExistingAccount(user.Email))
+                return Json<string>("Failed!");
             userDAL.createUser(user);
             dBConnect.CloseConnection();
             return Json<string>("Succesfully!");

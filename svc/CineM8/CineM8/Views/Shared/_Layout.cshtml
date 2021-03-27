@@ -26,6 +26,7 @@
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Register", "Index", "Register", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
 
                 </ul>
             </div>
@@ -46,6 +47,7 @@
     @Scripts.Render("~/Scripts/bootstrap-table.js")
     @Scripts.Render("~/Scripts/constants.js")
     @Scripts.Render("~/Scripts/register.js")
+    @Scripts.Render("~/Scripts/login.js")
     @RenderSection("scripts", required: false)
 
 </body>
