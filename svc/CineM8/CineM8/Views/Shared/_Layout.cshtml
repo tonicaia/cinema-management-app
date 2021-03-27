@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/lib/twitter-bootstrap/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,11 +26,12 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Register", "Index", "Register", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
-
+                </ul>
+                <ul class="nav navbar-nav" style="float:right;">
+                    <li style="background-color:rgb(255, 10, 10,0.8);"><a type="button" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
                 </ul>
             </div>
+
         </div>
     </div>
     <div class="container body-content">
@@ -42,8 +44,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/twiter-bootstrap")
     @Scripts.Render("~/Scripts/admin.js")
-    @Scripts.Render("~/lib/twitter-bootstrap/js")
     @Scripts.Render("~/Scripts/bootstrap-table.js")
     @Scripts.Render("~/Scripts/constants.js")
     @Scripts.Render("~/Scripts/register.js")

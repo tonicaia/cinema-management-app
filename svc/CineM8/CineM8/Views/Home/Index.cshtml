@@ -18,8 +18,8 @@
 
     #testButton {
         background-color: #4CAF50;
-        width:100px;
-        height:50px;
+        width: 100px;
+        height: 50px;
     }
     /* Green */
     .button2 {
@@ -41,12 +41,51 @@
                 </div>
             </div>
         </div>
-    </div>        
+    </div>
 </div>
 
+<!-- LOGIN MODAL-->
+<!-- Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">LOGIN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <div class="white-panel">
+                        <div class="login-show" style="margin:auto;width:50%;text-align:center;">
+                            <div class="input-group flex-nowrap" style="width:100%;">
+                                <span class="input-group-text" id="addon-wrapping"></span>
+                                <input type="text" class="form-control" id="username-login-form" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <br />
+                            <div class="input-group flex-nowrap" style="width:100%;">
+                                <span class="input-group-text" id="addon-wrapping"></span>
+                                <input type="password" class="form-control" id="password-login-form" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <br />
+                            <div id="register-option-redirect">
+                                Don't have an account? <a href="/Register">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="login-button" class="btn btn-primary" onclick="login()">Login</button>
+                </div>
+        </div>
+    </div>
+</div>
 
-    <button id="testButton" onclick="myFunction()">
-        Test get Users
-    </button>
+<!-- END LOGIN MODAL -->
+
+<button id="testButton" onclick="myFunction()">
+    Test get Users
+</button>
 
 
