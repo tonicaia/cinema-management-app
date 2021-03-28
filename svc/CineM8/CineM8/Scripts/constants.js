@@ -1,4 +1,6 @@
-﻿const USERS_URL = 'api/user';
+﻿
+const USERS_URL = 'api/user';
+const MOVIES_URL = 'api/movies';
 
 
 //an array to store all the active users

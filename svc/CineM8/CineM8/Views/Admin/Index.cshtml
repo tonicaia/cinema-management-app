@@ -16,7 +16,7 @@
         <a class="nav-link active" data-toggle="pill" href="#users">Users</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#movies">Movies</a>
+        <a class="nav-link" data-toggle="pill" href="#movies" onclick="getAllMovies()">Movies</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="pill" href="#halls">Halls</a>
@@ -40,7 +40,7 @@
         >
             <thead>
                 <tr>
-                    <th data-field="Id" >Id</th>
+                    <th data-field="Id">Id</th>
                     <th data-field="FirstName">Firstname</th>
                     <th data-field="LastName">Lastname</th>
                     <th data-field="Email">Email</th>
@@ -49,11 +49,32 @@
 
         </table>
     </div>
+
     <div class="tab-pane container fade" id="movies">
         <div class="alert alert-info">
             <strong>Manage Movies : </strong> This tab is used to manage the listed movies
         </div>
+            <table
+                   id="movies-table" 
+                   class="table table-hover" 
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-page-list="[10, 25, 50, 100, all]"
+            >
+               <thead>
+                   <tr>
+                       <th data-field="Id">Id</th>
+                       <th data-field="Name">Name</th>
+                       <th data-field="Description">Description</th>
+                       <th data-field="Length">Length</th>
+                       <th data-field="IsRunning">IsRunning</th>
+                   </tr>
+               </thead>
+            </table>
     </div>
+
     <div class="tab-pane container fade" id="halls">
         <div class="alert alert-info">
             <strong>Manage Halls : </strong> This tab is used to manage the cinema halls

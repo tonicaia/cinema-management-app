@@ -9,14 +9,13 @@ namespace CineM8.Controllers
     [RoutePrefix("api/movies")]
     public class MovieController : ApiController
     {
-        DBConnect dBConnect;
+        static DBConnect dBConnect = new DBConnect();
         MovieDAL movieDAL;
         [HttpGet]
         [Route("GetMovie")]
 
         public JsonResult<List<Movie>> GetAllMovies()
         {
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
 
@@ -28,15 +27,14 @@ namespace CineM8.Controllers
         }
 
         [HttpGet]
-        [Route("ReadMovie")]
-        public JsonResult<List<Movie>> ReadMovie()
+        [Route("ReadMovie/{movieId}")]
+        public JsonResult<List<Movie>> ReadMovie(int movieId)
         {
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
 
             List<Movie> movies = new List<Movie>();
-            movies = movieDAL.readMovie(1);
+            movies = movieDAL.readMovie(movieId);
 
             dBConnect.CloseConnection();
             return Json<List<Movie>>(movies);
@@ -45,54 +43,37 @@ namespace CineM8.Controllers
 
         [HttpPost]
         [Route("PostNewMovie")]
-        public void PostMovie()
+        public void PostMovie(Movie movie)
         {
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
-
-            Movie movie = new Movie("Scary movie", "it's a scary movie", 89, false);
             movieDAL.CreateMovie(movie);
             dBConnect.CloseConnection();
         }
 
         [HttpDelete]
-        [Route("DeleteMovie")]
-        public JsonResult<string> DeleteMovie()
+        [Route("DeleteMovie/{movieId}")]
+        public JsonResult<string> DeleteMovie(int movieId)
         {
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
-            movieDAL.deleteMovie(2);
+            movieDAL.deleteMovie(movieId);
             string comment = "Movie Deleted Succesfully!";
             dBConnect.CloseConnection();
             return Json<string>(comment); 
         }
 
         [HttpPut]
-        [Route("UpdateMovie")]
-        public JsonResult<string> UpdateMovie()
+        [Route("UpdateMovie/{movieId}")]
+        public JsonResult<string> UpdateMovie(int movieId, Movie movie)
         {
-            dBConnect = new DBConnect();
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
-            Movie movie = new Movie("Scary Movie 5", "it's a scary movie but also funny", 91, false); ;
-            movieDAL.updateMovie(1, movie);
+            movieDAL.updateMovie(movieId, movie);
             string message = "Movie Updated Succesfully!";
             dBConnect.CloseConnection();
             return Json<string>(message);
         }
 
-        /*
-        public IEnumerable<string> GetAllUsers()
-        {
-            List<Movie> movies = new List<Movie>();
-            movieDAL = new MovieDAL();
-            dBConnect = new DBConnect();
-            dBConnect.OpenConnection();
-            movies = movieDAL.GetAllMovies();
-            dBConnect.CloseConnection();
-            return new string[] { movies[0].Name, movies[0].Description };
-        } */
     }
 }
