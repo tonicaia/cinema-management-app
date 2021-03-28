@@ -2,7 +2,8 @@
 //Users
 var $table = $('#table')
 
-$(document).ready(function () {
+﻿$(document).ready(function () {
+
     getAllUsers();
 
 });

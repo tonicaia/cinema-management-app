@@ -1,7 +1,9 @@
 ﻿using CineM8.DAL;
 using CineM8.Models;
+using LiteDB;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -17,11 +19,11 @@ namespace CineM8.Controllers
         [Route("getAll")]
         public JsonResult<List<User>> GetAllUsers()
         {
-                dBConnect.OpenConnection();
-                List<User> users = new List<User>();
-                users = userDAL.GetAllUsers();
-                dBConnect.CloseConnection();
-                return Json<List<User>>(users);
+            dBConnect.OpenConnection();
+            List<User> users = new List<User>();
+            users = userDAL.GetAllUsers();
+            dBConnect.CloseConnection();
+            return Json<List<User>>(users);
 
         }
 
@@ -29,9 +31,21 @@ namespace CineM8.Controllers
         [Route("get/{userId}")]
         public JsonResult<List<User>> GetUser(int userId)
         {
-            dBConnect.OpenConnection();
             List<User> users = new List<User>();
+            dBConnect.OpenConnection();
             users = userDAL.readUser(userId);
+            dBConnect.CloseConnection();
+            return Json<List<User>>(users);
+        }
+
+        [HttpGet]
+        [Route("find/{email}")]
+
+        public JsonResult<List<User>> FindUser(string email)
+        {
+            List<User> users = new List<User>();
+            dBConnect.OpenConnection();
+            users = userDAL.findUser(email);
             dBConnect.CloseConnection();
             return Json<List<User>>(users);
         }
@@ -42,6 +56,10 @@ namespace CineM8.Controllers
         public JsonResult<string> CreateUser(User user)
         {
             dBConnect.OpenConnection();
+            Debug.WriteLine(user.Email);
+            Debug.WriteLine(userDAL.isExistingAccount(user.Email));
+            if (userDAL.isExistingAccount(user.Email))
+                return Json<string>("Failed!");
             userDAL.createUser(user);
             dBConnect.CloseConnection();
             return Json<string>("Succesfully!");
@@ -58,24 +76,15 @@ namespace CineM8.Controllers
             return Json<string>(message);
         }
 
-        [HttpPut]
-        [Route("update")]
-        public JsonResult<string> UpdateUser(int userId, User user)
-        {
-            dBConnect.OpenConnection();
-            userDAL.updateUser(userId,user);
-            string message = "User Updated Succesfully!";
-            dBConnect.CloseConnection();
-            return Json<string>(message);
-        }
-
-        [HttpGet]
+        [HttpPost]
         [Route("login")]
-        public JsonResult<string> LoginUser(string email, string pass)
+        public JsonResult<string> LoginUser(string email, string password)
         {
             string message = "";
+            Debug.WriteLine("wkfawfwapfkawpofkwafkwa");
+            Debug.WriteLine(email + " " + password);
             dBConnect.OpenConnection();
-            if (userDAL.login(email, pass) == true)
+            if (userDAL.login(email, password) == true)
             {
                 message = "Login Succesfully!";
             }
@@ -84,6 +93,17 @@ namespace CineM8.Controllers
                 message = "Login Failed!";
             }
 
+            dBConnect.CloseConnection();
+            return Json<string>(message);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public JsonResult<string> UpdateUser(int userId, User user)
+        {
+            dBConnect.OpenConnection();
+            userDAL.updateUser(userId, user);
+            string message = "User Updated Succesfully!";
             dBConnect.CloseConnection();
             return Json<string>(message);
         }

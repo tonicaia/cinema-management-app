@@ -1,4 +1,4 @@
-﻿function getItems() {
+function getItems() {
     fetch(USERS_URL + "/getall")
         .then(response => response.json())
         .then(data => console.log(data))
@@ -25,7 +25,7 @@ function addItem() {
         card: cardNumberTextbox.value.trim()
     };
 
-    if (isSamePass(item.password, item.confirm) && isEmail(item.email) && isValidNumber(item.phoneNumber)) {
+    if (isValid(item)) {
         fetch(USERS_URL + "/create", {
             method: 'POST',
             headers: {
@@ -35,7 +35,7 @@ function addItem() {
             body: JSON.stringify(item)
         })
             .then(response => response.json())
-            .then((succesMessage) => {
+            .then((Message) => {
                 addFirstNameTextbox.value = '';
                 addLastNameTextBox.value = '';
                 addEmailTextbox.value = '';
@@ -43,7 +43,7 @@ function addItem() {
                 confirmPasswordTextbox.value = '';
                 phoneNumberTextbox.value = '';
                 cardNumberTextbox.value = '';
-                alert(succesMessage);
+                alert(Message);
             })
             .catch(error => console.error('Unable to add item.', error));
     }
@@ -70,6 +70,26 @@ function isSamePass(pass, confirmPass) {
 
 function isValidNumber(phoneNumber) {
     if (phoneNumber.length === 10)
+        return true;
+    return false;
+}
+
+function isEmpty(textBoxValue) {
+    if (textBoxValue == '')
+        return true;
+    return false;
+}
+
+function isFormFilled(item) {
+    for (var i = 1; i < item.length; i++) {
+        if (isEmpty(item[i]))
+            return false;
+    }
+    return true;
+}
+
+function isValid(item) {
+    if (isSamePass(item.password, item.confirm) && isEmail(item.email) && isValidNumber(item.phoneNumber) && isFormFilled(item))
         return true;
     return false;
 }
