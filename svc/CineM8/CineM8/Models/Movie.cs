@@ -7,13 +7,16 @@
         private string description;
         private float length;
         private bool isRunning;
+        private string imageURL;
 
-        public Movie(string name, string description, float length, bool isRunning)
+        public Movie(string name, string description, float length, bool isRunning, string imageURL )
         {
             this.name = name;
             this.description = description;
             this.length = length;
             this.isRunning = isRunning;
+            this.imageURL = imageURL;
+
         }
     
         //TODO : more fields such as length, actor, rating... construtors, getters and setters
@@ -44,6 +47,12 @@
         {
             get => isRunning;
             set => isRunning = value;
+        }
+
+        public string ImageURL
+        {
+            get => imageURL;
+            set => imageURL = value;
         }
     }
 }

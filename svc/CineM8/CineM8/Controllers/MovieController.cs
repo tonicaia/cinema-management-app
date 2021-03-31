@@ -43,12 +43,14 @@ namespace CineM8.Controllers
 
         [HttpPost]
         [Route("PostNewMovie")]
-        public void PostMovie(Movie movie)
+        public JsonResult<string> PostMovie(Movie movie)
         {
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
             movieDAL.CreateMovie(movie);
             dBConnect.CloseConnection();
+
+            return Json<string>("Movie name: " + movie.Name + " description: " + movie.Description + " length: " + movie.Length);
         }
 
         [HttpDelete]

@@ -1,6 +1,7 @@
 ﻿
 //Users
 var $table = $('#table')
+var $add = $('#add')
 
 ﻿$(document).ready(function () {
 
@@ -87,6 +88,7 @@ function fillMoviesTable() {
                 title: 'isRunning',
                 formatter : isRunningFormatter
             },
+            {},
             {
                 field: 'operate',
                 title: 'Manage',
@@ -99,15 +101,16 @@ function fillMoviesTable() {
         ]
   
     });
+    $('#movies-table').bootstrapTable('refresh')
 }
 
 function isRunningFormatter(value, row, index) {
     var isChecked = row.IsRunning;
     if (isChecked) {
-        return ['<input type="checkbox" checked >']
+        return ['<input onclick="changeIsRunningStatus(\'' + row.Id +'\')" type="checkbox" checked>']
     }
     else {
-        return['<input type="checkbox">' ]
+        return ['<input onclick="changeIsRunningStatus(\'' + row.Id +'\')" type="checkbox">']
     }
 }
 function operateMovieFormatter(value, row, index) {
@@ -142,17 +145,26 @@ function deleteMovie(id) {
     alert("Succes");
 }
 
-/*
-function changeIsRunningStatus(id, isRunning) {
+
+function changeIsRunningStatus(id) {
+    var movie;
+    movies.map(m => {
+        if (m.Id == id) {
+            movie = m;
+        }
+    });
+    movie.IsRunning = !movie.IsRunning;
     fetch(MOVIES_URL + "/UpdateMovie/" + id, {
-        method: 'Put',
+        method: 'PUT',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id, isRunning})
+        body: JSON.stringify(movie)
     })
-        .then(() => {
-
-
-}*/
+        .then(response => response.json())
+        .then((Message) => {
+            alert(Message);
+        })
+        .catch(error => console.error('Unable to add item.', error));
+}

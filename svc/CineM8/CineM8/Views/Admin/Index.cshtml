@@ -3,6 +3,7 @@
 }
 <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js">
 </script>
+
 <div class="page-header">
     <h1>Admin View <small>Hello name, you are currently logged in as an admin</small></h1>
 </div>
@@ -29,15 +30,13 @@
         <div class="alert alert-info">
             <strong>Manage Users : </strong> This tab is used to manage the registered users
         </div>
-        <table 
-               id="users-table" 
-               class="table table-hover" 
+        <table id="users-table"
+               class="table table-hover"
                data-search="true"
                data-show-refresh="true"
                data-show-pagination-switch="true"
                data-pagination="true"
-               data-page-list="[10, 25, 50, 100, all]"
-        >
+               data-page-list="[10, 25, 50, 100, all]">
             <thead>
                 <tr>
                     <th data-field="Id">Id</th>
@@ -54,25 +53,27 @@
         <div class="alert alert-info">
             <strong>Manage Movies : </strong> This tab is used to manage the listed movies
         </div>
-            <table
-                   id="movies-table" 
-                   class="table table-hover" 
-                   data-search="true"
-                   data-show-refresh="true"
-                   data-show-pagination-switch="true"
-                   data-pagination="true"
-                   data-page-list="[10, 25, 50, 100, all]"
-            >
-               <thead>
-                   <tr>
-                       <th data-field="Id">Id</th>
-                       <th data-field="Name">Name</th>
-                       <th data-field="Description">Description</th>
-                       <th data-field="Length">Length</th>
-                       <th data-field="IsRunning">IsRunning</th>
-                   </tr>
-               </thead>
-            </table>
+        <div id="toolbar">
+            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addModal">Add</button>
+        </div>
+        <table id="movies-table"
+               class="table table-hover"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-page-list="[10, 25, 50, 100, all]">
+            <thead>
+                <tr>
+                    <th data-field="Id">Id</th>
+                    <th data-field="Name">Name</th>
+                    <th data-field="Description">Description</th>
+                    <th data-field="Length">Length</th>
+                    <th data-field="IsRunning">IsRunning</th>
+                    <th data-field="ImageURL">ImageURL</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 
     <div class="tab-pane container fade" id="halls">
@@ -82,3 +83,46 @@
     </div>
 </div>
 
+<!-- MOVIE MODAL-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Movie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="movie-name" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="movie-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-description" class="col-form-label">Description</label>
+                        <textarea class="form-control" id="movie-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-length" class="col-form-label">Length</label>
+                        <input type="number" class="form-control" id="movie-length">
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-isRunning" class="col-check-label">IsRunning</label>
+                        <input type="checkbox" class="form-check-input" id="movie-isRunning">
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-ImageURL" class="col-form-label">ImageURL</label>
+                        <input type="text" class="form-control" id="movie-imageURL">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="save-button" class="btn btn-primary" onclick="AddMovie()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MOVIE MODAL -->
