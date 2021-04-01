@@ -16,13 +16,11 @@ namespace CineM8.Controllers
 
         public JsonResult<List<Movie>> GetAllMovies()
         {
-            dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
 
             List<Movie> movies = new List<Movie>();
             movies = movieDAL.GetAllMovies();
 
-            dBConnect.CloseConnection();
             return Json<List<Movie>>(movies);
         }
 

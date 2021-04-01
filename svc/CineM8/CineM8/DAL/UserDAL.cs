@@ -12,29 +12,46 @@ namespace CineM8.DAL
     {
         public List<User> GetAllUsers()
         {
-            List<User> users = new List<User>();
-            string query = "SELECT * FROM Users;";
-            MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds, "Users");
-            DataTable dt = ds.Tables["Users"];
-
-            foreach (DataRow dr in dt.Rows)
+            try
             {
-                string firstName = dr["FirstName"].ToString();
-                string lastName = dr["LastName"].ToString();
-                string email = dr["email"].ToString();
-                string password = dr["pass"].ToString();
-                string phoneNumber = dr["phoneNumber"].ToString();
-                string cardNumber = dr["cardNumber"].ToString();
-                bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
-                User user = new User(firstName, lastName, email, password, phoneNumber, cardNumber, isAdmin);
-                user.Id = Convert.ToInt32(dr["userId"]);
+                List<User> users = new List<User>();
+                DataSet ds;
+                MySqlDataAdapter da;
 
-                users.Add(user);
+                using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
+                {
+                    string query = "SELECT * FROM Users;";
+                    connection.Open();
+
+                    da = new MySqlDataAdapter(query, connection);
+                    ds = new DataSet();
+                    da.Fill(ds, "Users");
+                }
+                    DataTable dt = ds.Tables["Users"];
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string firstName = dr["FirstName"].ToString();
+                        string lastName = dr["LastName"].ToString();
+                        string email = dr["email"].ToString();
+                        string password = dr["pass"].ToString();
+                        string phoneNumber = dr["phoneNumber"].ToString();
+                        string cardNumber = dr["cardNumber"].ToString();
+                        bool isAdmin = Convert.ToBoolean(dr["isAdmin"].ToString());
+                        User user = new User(firstName, lastName, email, password, phoneNumber, cardNumber, isAdmin);
+                        user.Id = Convert.ToInt32(dr["userId"]);
+
+                        users.Add(user);
+                    }
+
+                    return users;
+               
             }
-
-            return users;
+            catch(MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
         }
 
         public void createUser(User user)

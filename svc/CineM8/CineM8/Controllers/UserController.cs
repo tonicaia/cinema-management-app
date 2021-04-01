@@ -19,12 +19,9 @@ namespace CineM8.Controllers
         [Route("getAll")]
         public JsonResult<List<User>> GetAllUsers()
         {
-            dBConnect.OpenConnection();
             List<User> users = new List<User>();
             users = userDAL.GetAllUsers();
-            dBConnect.CloseConnection();
             return Json<List<User>>(users);
-
         }
 
         [HttpGet]

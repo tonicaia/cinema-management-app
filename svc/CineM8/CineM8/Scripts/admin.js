@@ -3,21 +3,6 @@
 var $table = $('#table')
 var $add = $('#add')
 
-﻿$(document).ready(function () {
-
-    getAllUsers();
-
-});
-
-function getAllUsers() {
-    fetch(USERS_URL + "/getall")
-        .then(response => response.json())
-        .then(data => {
-            users = data;
-            fillUsersTable();
-        })
-        .catch(error => console.error("Unable to get users", error));
-}
 function fillUsersTable() {
     $('#users-table').bootstrapTable({
         data: users,
@@ -68,17 +53,6 @@ function deleteUser(id) {
 
 // Movies
 
-
-function getAllMovies() {
-    fetch(MOVIES_URL + "/GetMovie")
-        .then(response => response.json())
-        .then(data => {
-            movies = data;
-            console.log(movies)
-            fillMoviesTable();
-        })
-        .catch(error => console.error("Unable to get movies", error));
-}
 
 function fillMoviesTable() {
     $('#movies-table').bootstrapTable({

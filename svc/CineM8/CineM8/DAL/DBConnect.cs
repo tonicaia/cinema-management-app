@@ -6,6 +6,8 @@ namespace CineM8.DAL
 {
     public class DBConnect
     {
+        public static  String  conString = "Server=localhost;Database=cinemadb;Uid=root;Pwd=root;Allow User Variables=True"; // alow user variables  https://stackoverflow.com/questions/22597617/parameter-myleft-must-be-defined
+
         public static MySqlConnection conn = null;
         public void OpenConnection()
         {

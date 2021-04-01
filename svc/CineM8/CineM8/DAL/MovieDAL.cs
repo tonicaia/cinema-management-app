@@ -11,27 +11,44 @@ namespace CineM8.DAL
     {
         public List<Movie> GetAllMovies()
         {
-            List<Movie> movies = new List<Movie>();
-            string query = "SELECT * FROM Movies;";
-            MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds, "Movies");
-            DataTable dt = ds.Tables["Movies"];
-
-            foreach (DataRow dr in dt.Rows)
+            try
             {
-                string movieName = dr["MovieName"].ToString();
-                string description = dr["MovieDescription"].ToString();
-                float movieLength = float.Parse(dr["MovieLength"].ToString());
-                bool isRunning = Convert.ToBoolean(dr["MovieIsRunning"].ToString());
-                string imageURL = dr["ImageURL"].ToString();
-                Movie movie = new Movie(movieName,description,movieLength,isRunning, imageURL);
-                movie.Id = Convert.ToInt32(dr["movieId"]);
+                List<Movie> movies = new List<Movie>();
+                DataSet ds;
+                MySqlDataAdapter da;
 
-                movies.Add(movie);
+                using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
+                {
+                    string query = "SELECT * FROM Movies;";
+                    connection.Open();
+
+                    da = new MySqlDataAdapter(query, connection);
+                    ds = new DataSet();
+                    da.Fill(ds, "Movies");
+                }
+                DataTable dt = ds.Tables["Movies"];
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    string movieName = dr["MovieName"].ToString();
+                    string description = dr["MovieDescription"].ToString();
+                    float movieLength = float.Parse(dr["MovieLength"].ToString());
+                    bool isRunning = Convert.ToBoolean(dr["MovieIsRunning"].ToString());
+                    string imageURL = dr["ImageURL"].ToString();
+                    Movie movie = new Movie(movieName, description, movieLength, isRunning, imageURL);
+                    movie.Id = Convert.ToInt32(dr["movieId"]);
+
+                    movies.Add(movie);
+                }
+
+                return movies;
+
             }
-
-            return movies;
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
         }
 
         public void CreateMovie(Movie movie)
