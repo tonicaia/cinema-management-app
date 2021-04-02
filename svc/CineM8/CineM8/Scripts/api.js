@@ -1,4 +1,4 @@
-﻿function getAllUsers() {
+function getAllUsers() {
     fetch(USERS_URL + "/getall")
         .then(response => response.json())
         .then(data => {
@@ -14,7 +14,8 @@ function getAllMovies() {
         .then(data => {
             movies = data;
             console.log(movies)
-            fillMoviesTable();
+          fillMoviesTable();
+          fillMoviesList();
         })
         .catch(error => console.error("Unable to get movies", error));
 }
