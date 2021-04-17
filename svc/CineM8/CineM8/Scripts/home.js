@@ -9,7 +9,8 @@ function fillMoviesList() {
       moviesList.innerHTML += `
       <div class="col-xs-6 col-md-3">
         <h2 class="title">${movie.Name}</h2>
-        <a href="#"><img class="image" style="width:200px;height:300px" src="${movie.ImageURL}" /></a>
+        <a href="https://localhost:44300/movies/show/${movie.Id}"><img class="image" style="width:200px;height:300px" src="${movie.ImageURL}" /></a>
+         <div>${movie.Id}</div>
        </div>
       `;
     }
