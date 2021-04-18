@@ -1,0 +1,16 @@
+@model CineM8.Models.Movie
+@{
+    ViewBag.Title = "Movie";
+    
+}
+
+<h1>Numele Filmului: @Model.Name</h1>
+
+<p>Film Id: @Model.Id</p>
+
+<img src="@Model.ImageURL"/>
+
+<h3>Informatii despre film:@Model.Description</h3>
+
+<p>Aici vine smecheria cu scaunele de selectat</p>
+
