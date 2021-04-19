@@ -206,6 +206,7 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
