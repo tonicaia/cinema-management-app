@@ -217,7 +217,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\AddMovie.js" />
+    <Content Include="Scripts\AddUpdateMovie.js" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\api.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -266,6 +266,7 @@
     <Content Include="Scripts\twitter-bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Scripts\twitter-bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\twitter-bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\UpdateUser.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

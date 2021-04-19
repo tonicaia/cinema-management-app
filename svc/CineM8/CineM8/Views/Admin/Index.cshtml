@@ -54,7 +54,7 @@
             <strong>Manage Movies : </strong> This tab is used to manage the listed movies
         </div>
         <div id="toolbar">
-            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addModal">Add</button>
+            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addUpdateMovieModal" onclick="changedoUpdate(); resetText()">Add</button>
         </div>
         <table id="movies-table"
                class="table table-hover"
@@ -83,12 +83,12 @@
     </div>
 </div>
 
-<!-- MOVIE MODAL-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- MOVIE MODAL FOR UPDATE AND ADD-->
+<div class="modal fade" id="addUpdateMovieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Movie</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Add/Update Movie Panel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,10 +119,45 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="save-button" class="btn btn-primary" onclick="AddMovie()">Save</button>
+                <button type="button" id="save-button" class="btn btn-primary" onclick="AddUpdateMovie()">Save</button>
             </div>
         </div>
     </div>
 </div>
+<!-- END MOVIE MODAL -->
 
+
+<!-- USERS MODAL FOR UPDATE-->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update User Panel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="user-firstname" class="col-form-label">Firstname</label>
+                        <input type="text" class="form-control" id="user-firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-lastname" class="col-form-label">LastName</label>
+                        <input type="text" class="form-control" id="user-lastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" id="user-email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="save-button" class="btn btn-primary" onclick="UpdateUser()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- END MOVIE MODAL -->

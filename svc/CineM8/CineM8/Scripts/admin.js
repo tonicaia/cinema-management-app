@@ -2,6 +2,13 @@
 //Users
 var $table = $('#table')
 var $add = $('#add')
+var $doUpdate = false
+var $idOfMovie
+var $nameOfMovie
+var $descriptionOfMovie
+var $lengthOfMovie
+var $imageURLOfMovie
+var $idOfUser
 
 function fillUsersTable() {
     $('#users-table').bootstrapTable({
@@ -22,7 +29,7 @@ function fillUsersTable() {
 
 function operateFormatter(value, row, index) {
     return [
-        '<button class="btn btn-info editUser">',
+        '<button class="btn btn-info editUser" data-toggle="modal" data-target="#updateUserModal">',
         '<span class= "glyphicon glyphicon-edit" ></span >',
         '</button > ',
         '<button class="btn btn-outline-danger removeUser">',
@@ -33,7 +40,10 @@ function operateFormatter(value, row, index) {
 
 window.operateEvents = {
     'click .editUser': function (e, value, row, index) {
-        alert('You are editing row: ' + JSON.stringify(row))
+        idOfUser = row.Id;
+        $('#user-firstname').val(row.FirstName);
+        $('#user-lastname').val(row.LastName);
+        $('#user-email').val(row.Email);
     },
     'click .removeUser': function (e, value, row, index) {
         deleteUser(row.Id);
@@ -62,7 +72,6 @@ function fillMoviesTable() {
                 title: 'isRunning',
                 formatter : isRunningFormatter
             },
-            {},
             {
                 field: 'operate',
                 title: 'Manage',
@@ -89,7 +98,7 @@ function isRunningFormatter(value, row, index) {
 }
 function operateMovieFormatter(value, row, index) {
     return [
-        '<button class="btn btn-info editMovie">',
+        '<button class="btn btn-info editMovie" data-toggle="modal" data-target="#addUpdateMovieModal">',
         '<span class= "glyphicon glyphicon-edit" ></span>',
         '</button> ',
         '<button class="btn btn-outline-danger removeMovie">',
@@ -100,7 +109,13 @@ function operateMovieFormatter(value, row, index) {
 
 window.operateMovieEvents = {
     'click .editMovie': function (e, value, row, index) {
-        alert('You are editing row: ' + JSON.stringify(row))
+        doUpdate = true,
+
+        idOfMovie = row.Id;
+        $('#movie-name').val(row.Name);
+        $('#movie-description').val(row.Description);
+        $('#movie-length').val(row.Length);
+        $('#movie-imageURL').val(row.ImageURL);
     },
     'click .removeMovie': function (e, value, row, index) {
         deleteMovie(row.Id);
@@ -142,3 +157,4 @@ function changeIsRunningStatus(id) {
         })
         .catch(error => console.error('Unable to add item.', error));
 }
+
