@@ -52,7 +52,6 @@ function addItem() {
     }
 }
 
-
 function closeInput() {
     document.getElementById('editForm').style.display = 'none';
 }
