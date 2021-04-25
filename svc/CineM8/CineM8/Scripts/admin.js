@@ -2,12 +2,6 @@
 //Users
 var $table = $('#table')
 var $add = $('#add')
-var $doUpdate = false
-var $idOfMovie
-var $nameOfMovie
-var $descriptionOfMovie
-var $lengthOfMovie
-var $imageURLOfMovie
 var $idOfUser
 
 function fillUsersTable() {
@@ -63,6 +57,12 @@ function deleteUser(id) {
 
 // Movies
 
+var $doUpdate = false
+var $idOfMovie
+var $nameOfMovie
+var $descriptionOfMovie
+var $lengthOfMovie
+var $imageURLOfMovie
 
 function fillMoviesTable() {
     $('#movies-table').bootstrapTable({
@@ -158,3 +158,49 @@ function changeIsRunningStatus(id) {
         .catch(error => console.error('Unable to add item.', error));
 }
 
+//Halls
+
+function fillHallsTable() {
+    $('#halls-table').bootstrapTable({
+        data: halls,
+        columns: [{}, {},
+        {
+            field: 'operate',
+            title: 'Manage',
+            align: 'center',
+            valign: 'middle',
+            clickToSelect: false,
+            events: window.operateHallsEvents,
+            formatter: operateHallsFormatter
+        }
+        ]
+
+    });
+    $('#halls-table').bootstrapTable('refresh')
+}
+
+function operateHallsFormatter(value, row, index) {
+    return [
+        '<button class="btn btn-outline-danger removeHall">',
+        '<span class= "glyphicon glyphicon-trash" ></span>',
+        '</button>'
+    ].join('')
+}
+
+window.operateHallsEvents = {
+    'click .removeHall': function (e, value, row, index) {
+        deleteHall(row.Id);
+        $('#halls-table').bootstrapTable('remove', {
+            field: 'Id',
+            values: [row.Id],
+        })
+    }
+}
+
+function deleteHall(id) {
+    fetch(HALLS_URL + "/DeleteHall/" + id, {
+        method: 'Delete',
+    })
+        .then(response => response.json())
+    alert("Succes");
+}
