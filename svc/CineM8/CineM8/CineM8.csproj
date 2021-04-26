@@ -195,10 +195,12 @@
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\CinemaHallDAL.cs" />
     <Compile Include="DAL\MovieDAL.cs" />
+    <Compile Include="DAL\ReservationDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="DAL\DBConnect.cs" />
     <Compile Include="Global.asax.cs">

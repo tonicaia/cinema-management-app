@@ -161,6 +161,5 @@ namespace CineM8.DAL
             }
 
         }
-        }
     }
 }
