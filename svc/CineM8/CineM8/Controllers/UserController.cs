@@ -73,11 +73,11 @@ namespace CineM8.Controllers
             return Json<string>(message);
         }
 
-        [HttpPost]
         [Route("login")]
         public JsonResult<string> LoginUser(User user)
         {
             string message = "Login Failed!";
+            dBConnect.OpenConnection();
             dBConnect.OpenConnection();
             if (userDAL.login(user.Email, user.Password) == true)
             {
@@ -88,7 +88,7 @@ namespace CineM8.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
+        [Route("update/{userId}")]
         public JsonResult<string> UpdateUser(int userId, User user)
         {
             dBConnect.OpenConnection();

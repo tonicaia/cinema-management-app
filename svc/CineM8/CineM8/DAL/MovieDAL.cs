@@ -122,7 +122,7 @@ namespace CineM8.DAL
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Create Movie Error!");
+                    Debug.WriteLine("Update Movie Error!");
                     Console.WriteLine("Error: {0}", e.ToString());
                 }
             }
@@ -132,6 +132,7 @@ namespace CineM8.DAL
         {
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
+
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
                 comm.CommandText = "DELETE from Movies where movieID = @id";
                 comm.Parameters.AddWithValue("@id", id);
@@ -140,9 +141,10 @@ namespace CineM8.DAL
                 {
                     comm.ExecuteNonQuery();
                 }
+
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Create Movie Error!");
+                    Debug.WriteLine("Delete Movie Error!");
                     Console.WriteLine("Error: {0}", e.ToString());
                 }
             }

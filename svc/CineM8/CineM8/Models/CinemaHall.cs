@@ -5,10 +5,6 @@
         private int id;
         private int capacity;
 
-        public CinemaHall()
-        {
-        }
-
         public CinemaHall(int capacity)
         {
             this.capacity = capacity;
