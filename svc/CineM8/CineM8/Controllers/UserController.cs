@@ -75,21 +75,14 @@ namespace CineM8.Controllers
 
         [HttpPost]
         [Route("login")]
-        public JsonResult<string> LoginUser(string email, string password)
+        public JsonResult<string> LoginUser(User user)
         {
-            string message = "";
-            Debug.WriteLine("wkfawfwapfkawpofkwafkwa");
-            Debug.WriteLine(email + " " + password);
+            string message = "Login Failed!";
             dBConnect.OpenConnection();
-            if (userDAL.login(email, password) == true)
+            if (userDAL.login(user.Email, user.Password) == true)
             {
                 message = "Login Succesfully!";
             }
-            else
-            {
-                message = "Login Failed!";
-            }
-
             dBConnect.CloseConnection();
             return Json<string>(message);
         }

@@ -53,32 +53,41 @@ namespace CineM8.DAL
 
         public void CreateMovie(Movie movie)
         {
-            MySqlCommand comm = DBConnect.conn.CreateCommand();
-            comm.CommandText = "INSERT INTO Movies(MovieName, MovieDescription, MovieLength, MovieIsRunning, ImageURL) VALUES(@MovieName, @MovieDescription, @MovieLength, @MovieIsRunning, @ImageURL)";
-            comm.Parameters.AddWithValue("@MovieName", movie.Name);
-            comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
-            comm.Parameters.AddWithValue("@MovieLength", movie.Length);
-            comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
-            comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
-            try
+            using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
-                comm.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Create Movie Error!");
-                Console.WriteLine("Error: {0}", e.ToString());
+                MySqlCommand comm = DBConnect.conn.CreateCommand();
+                comm.CommandText = "INSERT INTO Movies(MovieName, MovieDescription, MovieLength, MovieIsRunning, ImageURL) VALUES(@MovieName, @MovieDescription, @MovieLength, @MovieIsRunning, @ImageURL)";
+                comm.Parameters.AddWithValue("@MovieName", movie.Name);
+                comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
+                comm.Parameters.AddWithValue("@MovieLength", movie.Length);
+                comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
+                comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
+                try
+                {
+                    comm.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Create Movie Error!");
+                    Console.WriteLine("Error: {0}", e.ToString());
+                }
             }
         }
 
         public List<Movie> readMovie(int id)
         {
             List<Movie> movies = new List<Movie>();
-            string query = "SELECT * FROM Movies where movieID = " + id;
-            MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds, "Movies");
-            DataTable dt = ds.Tables["Movies"];
+            DataSet ds;
+            DataTable dt;
+
+            using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
+            {
+                string query = "SELECT * FROM Movies where movieID = " + id;
+                MySqlDataAdapter da = new MySqlDataAdapter(query, DBConnect.conn);
+                ds = new DataSet();
+                da.Fill(ds, "Movies");
+            }
+            dt = ds.Tables["Movies"];
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -97,39 +106,45 @@ namespace CineM8.DAL
 
         public void updateMovie(int id, Movie movie)
         {
-            MySqlCommand comm = DBConnect.conn.CreateCommand();
-            comm.CommandText = "update Movies set MovieName = @MovieName , MovieDescription = @MovieDescription, MovieLength = @MovieLength, MovieIsRunning = @MovieIsRunning, ImageURL = @ImageURL where movieID = @id";
-            comm.Parameters.AddWithValue("@id", id);
-            comm.Parameters.AddWithValue("@MovieName", movie.Name);
-            comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
-            comm.Parameters.AddWithValue("@MovieLength", movie.Length);
-            comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
-            comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
-            try
+            using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
-                comm.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Create Movie Error!");
-                Console.WriteLine("Error: {0}", e.ToString());
+                MySqlCommand comm = DBConnect.conn.CreateCommand();
+                comm.CommandText = "update Movies set MovieName = @MovieName , MovieDescription = @MovieDescription, MovieLength = @MovieLength, MovieIsRunning = @MovieIsRunning, ImageURL = @ImageURL where movieID = @id";
+                comm.Parameters.AddWithValue("@id", id);
+                comm.Parameters.AddWithValue("@MovieName", movie.Name);
+                comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
+                comm.Parameters.AddWithValue("@MovieLength", movie.Length);
+                comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
+                comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
+                try
+                {
+                    comm.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Create Movie Error!");
+                    Console.WriteLine("Error: {0}", e.ToString());
+                }
             }
         }
 
         public void deleteMovie(int id)
         {
-            MySqlCommand comm = DBConnect.conn.CreateCommand();
-            comm.CommandText = "DELETE from Movies where movieID = @id";
-            comm.Parameters.AddWithValue("@id", id);
+            using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
+            {
+                MySqlCommand comm = DBConnect.conn.CreateCommand();
+                comm.CommandText = "DELETE from Movies where movieID = @id";
+                comm.Parameters.AddWithValue("@id", id);
 
-            try
-            {
-                comm.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Create Movie Error!");
-                Console.WriteLine("Error: {0}", e.ToString());
+                try
+                {
+                    comm.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Create Movie Error!");
+                    Console.WriteLine("Error: {0}", e.ToString());
+                }
             }
         }
     }
