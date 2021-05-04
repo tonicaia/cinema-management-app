@@ -38,6 +38,7 @@ window.operateEvents = {
         $('#user-firstname').val(row.FirstName);
         $('#user-lastname').val(row.LastName);
         $('#user-email').val(row.Email);
+        resetUserErrorText();
     },
     'click .removeUser': function (e, value, row, index) {
         deleteUser(row.Id);
@@ -116,6 +117,7 @@ window.operateMovieEvents = {
         $('#movie-description').val(row.Description);
         $('#movie-length').val(row.Length);
         $('#movie-imageURL').val(row.ImageURL);
+        resetMovieErrorText();
     },
     'click .removeMovie': function (e, value, row, index) {
         deleteMovie(row.Id);

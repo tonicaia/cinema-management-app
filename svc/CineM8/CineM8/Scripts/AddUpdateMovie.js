@@ -1,7 +1,8 @@
 ﻿const { checked } = require("modernizr");
 
+var check = 0;
 function AddUpdateMovie() {
-
+    check = 0;
     const nameTextBox = document.getElementById('movie-name');
     const descriptionTextArea = document.getElementById('movie-description');
     const lengthTextBox = document.getElementById('movie-length');
@@ -70,34 +71,33 @@ function changedoUpdate() {
 
 function isNumber(length) {
     if ($.isNumeric(length))
-   {
+    {
+        document.getElementById("movie-length-error").innerHTML = "";
         return true;
     }
-    else {
-        return false;
-    }
+    document.getElementById("movie-length-error").innerHTML = "Length input should be only a number!!";
+    return false;
 }
 
 function nullName(name)
 {
     if (!isEmpty(name))
     {
+        document.getElementById("movie-name-error").innerHTML = "";
         return true;
     }
-    else {
-        return false;
-    }
+    document.getElementById("movie-name-error").innerHTML = "Name field should not be empty!!";
+    return false;
 }
 function nullDescription(description)
 {
     if (!isEmpty(description))
     {
+        document.getElementById("movie-description-error").innerHTML = "";
         return true;
     }
-    else
-    {
-        return false;
-    }
+    document.getElementById("movie-description-error").innerHTML = "Description field should not be empty!!";
+    return false;
 
 }
 
@@ -116,37 +116,36 @@ function validURL(imageURL) {
 function validMovie(movie)
 {
     if (isNumber(movie.length)) {
-        if (nullName(movie.name))
-        {
-            if (nullDescription(movie.description)) {
-               if (validURL(movie.imageURL)) {
-                    return true;
-                }
-                else
-                {
-                    alert("ImageURL is not valid!!");
-                }
-            }
-            else {
-                alert("Description field should not be empty!!");
-            }
-        }
-        else
-        {
-            alert("Name field should not be empty!!");
-        }
+        check++;
+    }
+    if (nullName(movie.name)) {
+        check++;
+    }
+    if (nullDescription(movie.description)) {
+        check++;
+    }
+    if (validURL(movie.imageURL)) {
+        document.getElementById("movie-url-error").innerHTML = "";
+        check++;
     }
     else
     {
-        alert("Length input should be only a number!!");
+        document.getElementById("movie-url-error").innerHTML = "ImageURL is not valid!!";
     }
+    if (check === 4) {
+        return true;
+    }
+
+    return false;
+    
 }
 
 function isRunningCheck(isRunningCheckBox) {
     if (isRunningCheckBox.checked) {
         return true;
     }
-    else return false;
+
+    return false;
 }
 
 function resetText() {
@@ -154,4 +153,11 @@ function resetText() {
     $('#movie-description').val('');
     $('#movie-length').val('');
     $('#movie-imageURL').val('');
+}
+
+function resetMovieErrorText() {
+    document.getElementById("movie-url-error").innerHTML = "";
+    document.getElementById("movie-length-error").innerHTML = "";
+    document.getElementById("movie-name-error").innerHTML = "";
+    document.getElementById("movie-description-error").innerHTML = "";
 }

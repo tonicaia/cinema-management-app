@@ -1,0 +1,31 @@
+﻿#password {
+    height: 31px;
+}
+
+#password_confirm {
+    height: 31px;
+}
+
+#phone-number {
+    height: 31px;
+}
+
+#card-number {
+    height: 31px;
+}
+
+#email {
+    height: 31px;
+}
+
+#last-name {
+    height: 31px;
+}
+
+#first-name {
+    height: 31px;
+}
+
+#eye-id:hover {
+    color: #333
+} 

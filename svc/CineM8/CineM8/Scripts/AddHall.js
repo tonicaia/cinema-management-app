@@ -21,13 +21,16 @@
                     alert(Message);
                     getAllHalls();
                 })
-                .catch(error => console.error('Unable to insert hall!', error));
-
+            .catch(error => console.error('Unable to insert hall!', error));
     }
-    else alert("Capacity input is wrong!!")
+    document.getElementById("hall-error").innerHTML = "Capacity input is wrong!!";
 }
 
 function validHall(capacity) {
     var x;
     return isNaN(capacity) ? !1 : (x = parseFloat(capacity), (0 | x) === x);
+}
+
+function resetHallErrorText() {
+    document.getElementById("hall-error").innerHTML = "";
 }
