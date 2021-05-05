@@ -12,10 +12,24 @@ namespace CineM8.Controllers
     {
         static DBConnect dBConnect = new DBConnect();
         ReservationDAL reservationDAL = new ReservationDAL();
+
+
+        [HttpGet]
+        [Route("GetReservationForMovie")]
+        public JsonResult<List<Reservation>> GetAllReservationsForMovie(int movieId)
+        {
+
+            List<Reservation> reservations = new List<Reservation>();
+            dBConnect.OpenConnection();
+            reservations = reservationDAL.GetAllReservationsForMovie(movieId);
+            dBConnect.CloseConnection();
+            return Json<List<Reservation>>(reservations);
+        }
+
         [HttpGet]
         [Route("GetReservation")]
 
-        public JsonResult<List<Reservation>> GetAllMovies()
+        public JsonResult<List<Reservation>> GetAllReservations()
         {
 
             List<Reservation> reservations = new List<Reservation>();
@@ -27,7 +41,7 @@ namespace CineM8.Controllers
 
         [HttpGet]
         [Route("ReadReservation/{reservationId}")]
-        public JsonResult<List<Reservation>> ReadMovie(int reservationId)
+        public JsonResult<List<Reservation>> ReadReservation(int reservationId)
         {
             dBConnect.OpenConnection();
             List<Reservation> reservations = new List<Reservation>();

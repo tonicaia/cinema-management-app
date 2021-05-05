@@ -52,6 +52,46 @@ namespace CineM8.DAL
             return null;
         }
 
+        public List<Reservation> GetAllReservationsForMovie(int movieId)
+        {
+            try
+            {
+                List<Reservation> reservations = new List<Reservation>();
+                DataSet ds;
+                MySqlDataAdapter da;
+
+                using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
+                {
+                    string query = "SELECT * FROM Reservation where movieID = " + movieId;
+                    connection.Open();
+
+                    da = new MySqlDataAdapter(query, connection);
+                    ds = new DataSet();
+                    da.Fill(ds, "Reservation");
+                }
+                DataTable dt = ds.Tables["Reservation"];
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    int userID = Convert.ToInt32(dr["userID"]);
+                    int movieID = Convert.ToInt32(dr["movieID"]);
+                    int hallID = Convert.ToInt32(dr["hallID"]);
+                    int numberOfSeats = Convert.ToInt32(dr["numberOfSeats"]);
+                    DateTime startTime = Convert.ToDateTime(dr["startTime"]);
+                    DateTime endTime = Convert.ToDateTime(dr["endTime"]);
+                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime);
+
+                    reservations.Add(reservation);
+                }
+                return reservations;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+        }
+
         public void createReservation(Reservation reservation)
         {
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))

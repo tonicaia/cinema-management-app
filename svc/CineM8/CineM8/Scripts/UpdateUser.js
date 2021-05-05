@@ -1,6 +1,7 @@
-﻿
+﻿var check = 0;
 function UpdateUser() {
 
+    check = 0 ;
     const firstnameTextBox = document.getElementById('user-firstname');
     const lastnameTextBox = document.getElementById('user-lastname');
     const emailTextBox = document.getElementById('user-email');
@@ -33,45 +34,58 @@ function UpdateUser() {
         }
 }
 
-function isEmail(email) {
-    if (typeof email == "string" && email.indexOf('@') > -1 && email.indexOf('.') > -1)
+function isEmailValid(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function isFirstName(firstName) {
+    if (!isEmpty(firstName)) {
+        document.getElementById('user-firstname-error').innerHTML = " ";
         return true;
+    }
+    document.getElementById('user-firstname-error').innerHTML = "The firstname box should not be empty!!";
     return false;
 }
 
-function nullFirstname(firstname) {
-    if (!isEmpty(firstname)) {
+function isLastName(lastName) {
+    if (!isEmpty(lastName)) {
+        document.getElementById('user-lastname-error').innerHTML = " ";
         return true;
     }
-    else {
-        return false;
-    }
-}
-
-function nullLastname(lastname) {
-    if (!isEmpty(lastname)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    document.getElementById('user-lastname-error').innerHTML = "The lastname box should not be empty!!";
+    return false;
 }
 
 function validUser(user) {
-    if (isEmail(user.email)) {
-        if (nullFirstname(user.firstname)) {
-            if (nullLastname(user.lastname)) {
-                return true;
-            }
-            else {
-                alert("Lastname field should not be empty!!");
-            }
-        }
-        else {
-            alert("Firstname should not be empty!!");
-        }
+    if (isEmailValid(user.email)) {
+        document.getElementById('user-email-error').innerHTML = " ";
+        check++;
     }
     else {
-        alert("The email adress doesn't exist!!");
+        document.getElementById('user-email-error').innerHTML = "The email address is unavailable!!";
     }
+
+
+    if (isFirstNamey(user.firstname)) {
+        check++;
+    }
+
+
+    if (isLastName(user.lastname)) {
+        check++;
+    }
+
+    if (check === 3) {
+        return true;
+    }
+
+    return false;
+
+}
+
+function resetUserErrorText() {
+    document.getElementById("user-firstname-error").innerHTML = "";
+    document.getElementById("user-lastname-error").innerHTML = "";
+    document.getElementById("user-email-error").innerHTML = "";
 }
