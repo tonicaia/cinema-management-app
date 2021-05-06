@@ -16,38 +16,30 @@
         body:JSON.stringify(item),
     })
         .then(response => response.json())
-        .then((Message) => {
+        .then((user) => {
+            sessionStorage.setItem('userFirstName', user.FirstName);
+            sessionStorage.setItem('userIsAdmin', user.IsAdmin);
+
             emailTextbox.value = '';
             passwordTextbox.value = '';
-            alert(Message);
-            if (Message == "Login Succesfully!") {
-                localStorage.setItem('loggedInUser',true);
-                changeLoginButton(item);
+            console.log(user);
+            if (user) {
+                loggedInUser = user;
+                changeLoginButton(loggedInUser);
+                if (user.IsAdmin) {
+                    document.getElementById("admin-tab").style.visibility = "visible";
+                }
+             
             }
         })
         .catch(error => console.error('Unable to login!', error));
-
-   /* loggedInUser = {
-        "name": "Toni",
-        "admin": true
-    };
-    localStorage.setItem('loggedInUser', loggedInUser.name);
-    localStorage.setItem('admin', loggedInUser.admin);
-    if (localStorage.getItem('admin') == true) {
-        let adminButton = document.getElementsByClassName("adminButton");
-        adminButton[0].style.visibility = "visible";
-    }
-    if (loggedInUser.admin === true) {
-        let adminButton = document.getElementsByClassName("adminButton");
-        adminButton[0].style.visibility = "visible";
-    }
-    */
+  
 }
 
-function changeLoginButton(item) {
+function changeLoginButton(loggedInUser) {
     let loginButton = document.getElementsByClassName("loginButton");
     loginButton[0].href = "";
-    loginButton[0].innerHTML = "Hello" + " " + item.email;
+    loginButton[0].innerHTML = "Hello" + " " + loggedInUser.FirstName;
     loginButton[0].style.backgroundColor = "blue";
     loginButton[0].style.pointerEvents = "none";
 }

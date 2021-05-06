@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>@ViewBag.Title</title>
-  @Styles.Render("~/Content/css")
-  @Styles.Render("~/lib/twitter-bootstrap/css")
-  @Scripts.Render("~/bundles/modernizr")
-  <link rel="stylesheet" href="~/Content/home.css">
-  <link rel="stylesheet" href="~/Content/movie.css">
-  <link rel="stylesheet" href="~/Content/Register.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/lib/twitter-bootstrap/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/home.css">
+    <link rel="stylesheet" href="~/Content/movie.css">
+    <link rel="stylesheet" href="~/Content/Register.css">
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,11 +27,10 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-          <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-          <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
+          <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
         </ul>
         <ul class="nav navbar-nav" style="float:right;">
-          <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
+          <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id ="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
         </ul>
       </div>
     </div>

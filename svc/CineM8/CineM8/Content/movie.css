@@ -131,3 +131,10 @@ p.text {
 .credits a {
   color: #fff;
 }
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #bada55 !important;
+}
+.modal-content{
+    color:#242333;
+}

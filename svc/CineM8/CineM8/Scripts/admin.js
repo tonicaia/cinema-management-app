@@ -4,6 +4,7 @@ var $table = $('#table')
 var $add = $('#add')
 var $idOfUser
 
+
 function fillUsersTable() {
     $('#users-table').bootstrapTable({
         data: users,

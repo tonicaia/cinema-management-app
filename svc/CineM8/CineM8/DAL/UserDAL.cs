@@ -159,32 +159,30 @@ namespace CineM8.DAL
 
         }
 
-        public bool login(string Email, string Pass)
+        public int login(string Email, string Pass)
         {
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "select count(*) from users where email = @email AND pass = @pass";
+                comm.CommandText = "select * from users where email = @email AND pass = @pass";
                 comm.Parameters.AddWithValue("@email", Email);
                 comm.Parameters.AddWithValue("@pass", Pass);
-                int result = 0;
+                int userId = 0;
                 try
                 {
                     Debug.WriteLine(Email);
                     Debug.WriteLine(Pass);
-                    result = Convert.ToInt32(comm.ExecuteScalar());
-                    Debug.WriteLine(result);
+                    userId = Convert.ToInt32(comm.ExecuteScalar());
+
+                    Debug.WriteLine(userId);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     Debug.WriteLine("Execute Scalar error");
                 }
-                if (result != 0)
-                {
-                    return true;
-                }
-                return false;
+                
+                return userId;
             }
         }
 

@@ -74,17 +74,24 @@ namespace CineM8.Controllers
         }
 
         [Route("login")]
-        public JsonResult<string> LoginUser(User user)
+        public JsonResult<User> LoginUser(User user)
         {
+            List<User> users = new List<User>();
             string message = "Login Failed!";
             dBConnect.OpenConnection();
-            dBConnect.OpenConnection();
-            if (userDAL.login(user.Email, user.Password) == true)
+            int userId = userDAL.login(user.Email, user.Password);
+            if ( userId > 0)
             {
                 message = "Login Succesfully!";
+                users = userDAL.readUser(userId);
+
             }
+            
             dBConnect.CloseConnection();
-            return Json<string>(message);
+            if (users.Count == 1)
+                return Json<User>(users[0]);
+            else
+                return Json<User>(null);
         }
 
         [HttpPut]
