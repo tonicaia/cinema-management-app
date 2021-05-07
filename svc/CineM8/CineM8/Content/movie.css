@@ -49,11 +49,14 @@ body {
 
 .seat {
   background-color: #444451;
-  height: 12px;
-  width: 15px;
+  height: 20px;
+  width: 24px;
   margin: 3px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selected {
