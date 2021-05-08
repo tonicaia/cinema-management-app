@@ -1,6 +1,7 @@
 ﻿const HALLS_URL = 'api/halls';
 const USERS_URL = 'api/user';
 const MOVIES_URL = 'api/movies';
+const RESERVATIONS_URL = 'api/reservation'
 
 
 //an array to store all the active users

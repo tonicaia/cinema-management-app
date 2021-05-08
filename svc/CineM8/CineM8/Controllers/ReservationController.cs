@@ -40,6 +40,17 @@ namespace CineM8.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllReservationForUser/{userId}")]
+        public JsonResult<List<Reservation>> GetAllReservationsForUser(int userId)
+        {
+            dBConnect.OpenConnection();
+            List<Reservation> reservations = new List<Reservation>();
+            reservations = reservationDAL.GetAllReservationsForUser(userId);
+            dBConnect.CloseConnection();
+            return Json<List<Reservation>>(reservations);
+        }
+
+        [HttpGet]
         [Route("ReadReservation/{reservationId}")]
         public JsonResult<List<Reservation>> ReadReservation(int reservationId)
         {

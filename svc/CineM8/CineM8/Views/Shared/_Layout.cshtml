@@ -28,9 +28,10 @@
         <ul class="nav navbar-nav">
           <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
           <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
+          <li id="myReservationsTab" style="display:none;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
         </ul>
         <ul class="nav navbar-nav" style="float:right;">
-          <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id ="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
+          <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
         </ul>
       </div>
     </div>
