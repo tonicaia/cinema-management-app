@@ -1,4 +1,6 @@
-﻿function loginUser() {
+﻿let currentUserId = -1;
+
+function loginUser() {
     const emailTextbox = document.getElementById('username-login-form');
     const passwordTextbox = document.getElementById('password-login-form'); 
 
@@ -26,20 +28,29 @@
             if (user) {
                 loggedInUser = user;
                 changeLoginButton(loggedInUser);
+                currentUserId = loggedInUser.Id;
                 if (user.IsAdmin) {
                     document.getElementById("admin-tab").style.visibility = "visible";
                 }
-             
+                $("#close-button").click();
             }
+            
         })
         .catch(error => console.error('Unable to login!', error));
   
 }
+let loginButton = document.getElementsByClassName("loginButton");
 
 function changeLoginButton(loggedInUser) {
-    let loginButton = document.getElementsByClassName("loginButton");
     loginButton[0].href = "";
     loginButton[0].innerHTML = "Hello" + " " + loggedInUser.FirstName;
     loginButton[0].style.backgroundColor = "blue";
     loginButton[0].style.pointerEvents = "none";
+    const myReservationsTab = document.getElementById('myReservationsTab');
+    const myReservations = document.getElementById('myReservations');
+    myReservationsTab.style = "display:block";
+    myReservations.href = RESERVATIONS_URL + '/GetAllReservationForUser/' + currentUserId;
+    
 }
+
+

@@ -1,11 +1,11 @@
 $(document).ready(function () {
     $("#show_hide_password a").on('click', function (event) {
         event.preventDefault();
-        if ($('#show_hide_password input').attr("type") == "text") {
+        if ($('#show_hide_password input').attr("type") === "text") {
             $('#show_hide_password input').attr('type', 'password');
             $('#show_hide_password i').addClass("fa-eye-slash");
             $('#show_hide_password i').removeClass("fa-eye");
-        } else if ($('#show_hide_password input').attr("type") == "password") {
+        } else if ($('#show_hide_password input').attr("type") === "password") {
             $('#show_hide_password input').attr('type', 'text');
             $('#show_hide_password i').removeClass("fa-eye-slash");
             $('#show_hide_password i').addClass("fa-eye");
@@ -14,6 +14,11 @@ $(document).ready(function () {
 });
 
 var check = 0;
+var btn = document.getElementById('register-backbutton-id');
+
+btn.addEventListener("click", function () {
+    document.location.href = '../';
+})
 
 function getItems() {
     fetch(USERS_URL + "/getall")
@@ -27,10 +32,10 @@ function addItem() {
     const addFirstNameTextbox = document.getElementById('first-name');
     const addLastNameTextBox = document.getElementById('last-name');
     const addEmailTextbox = document.getElementById('email');
-    const addPasswordTextbox = document.getElementById('password'); 
-    const confirmPasswordTextbox = document.getElementById('password_confirm'); 
-    const phoneNumberTextbox = document.getElementById('phone-number'); 
-    const cardNumberTextbox = document.getElementById('card-number'); 
+    const addPasswordTextbox = document.getElementById('password');
+    const confirmPasswordTextbox = document.getElementById('password_confirm');
+    const phoneNumberTextbox = document.getElementById('phone-number');
+    const cardNumberTextbox = document.getElementById('card-number');
 
     const item = {
         isComplete: false,
@@ -42,7 +47,6 @@ function addItem() {
         phoneNumber: phoneNumberTextbox.value.trim(),
         card: cardNumberTextbox.value.trim()
     };
-
     if (isValid(item)) {
         fetch(USERS_URL + "/create", {
             method: 'POST',
@@ -61,10 +65,11 @@ function addItem() {
                 confirmPasswordTextbox.value = '';
                 phoneNumberTextbox.value = '';
                 cardNumberTextbox.value = '';
-                alert(Message);
             })
             .catch(error => console.error('Unable to add item.', error));
+
     }
+    document.location.href = 'https://localhost:44300/';
 }
 
 function closeInput() {
@@ -123,10 +128,10 @@ function LastNameisEmpty(lastName) {
 
 function validateCardNumber(number) {
     var regex = new RegExp("^[0-9]{16}$");
-    if (!regex.test(number)) { 
+    if (!regex.test(number)) {
         document.getElementById('cardNb-error').innerHTML = "The card number is not valid!!";
-    return false;
-}
+        return false;
+    }
     document.getElementById('cardNb-error').innerHTML = "";
     return luhnCheck(number);
 }
@@ -159,7 +164,7 @@ function isValid(item) {
         check++;
     }
 
-   if (FirstNameisEmpty(item.firstName)) {
+    if (FirstNameisEmpty(item.firstName)) {
         check++;
     }
 
@@ -170,7 +175,7 @@ function isValid(item) {
     if (LastNameisEmpty(item.lastName)) {
         check++;
     }
-    
+
     if (isSamePass(item.password, item.confirm)) {
         check++;
     }
