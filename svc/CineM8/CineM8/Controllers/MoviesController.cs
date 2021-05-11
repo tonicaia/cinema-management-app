@@ -12,6 +12,7 @@ namespace CineM8.Controllers
     {
         DBConnect dBConnect = new DBConnect();
         MovieDAL movieDAL;
+        CinemaHallDAL cinemaHallDAL;
         // GET: Movies
         public ActionResult Index()
         {
@@ -24,14 +25,30 @@ namespace CineM8.Controllers
         
             dBConnect.OpenConnection();
             movieDAL = new MovieDAL();
+            
 
             List<Movie> movies = new List<Movie>();
+            
+
             movies = movieDAL.readMovie(id);
+            
 
             dBConnect.CloseConnection();
 
 
           return View("~/Views/Movie/Movie.cshtml", movies[0]);
+        }
+
+        [ChildActionOnly]
+        public ActionResult RenderReservationContainer()
+        {
+          cinemaHallDAL = new CinemaHallDAL();
+
+          List<CinemaHall> cinemaHalls = new List<CinemaHall>();
+
+          cinemaHalls = cinemaHallDAL.GetAllCinameHalls();
+
+          return PartialView("_ReservationContainer", cinemaHalls);
         }
     }
 }

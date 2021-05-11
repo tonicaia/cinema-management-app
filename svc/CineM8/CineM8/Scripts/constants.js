@@ -1,4 +1,4 @@
-﻿const HALLS_URL = 'api/halls';
+const HALLS_URL = 'api/halls';
 const USERS_URL = 'api/user';
 const MOVIES_URL = 'api/movies';
 const RESERVATIONS_URL = 'api/reservation';
@@ -18,7 +18,8 @@ let prices = [];
 
 window.onload = function init() {
     let userName = window.sessionStorage.getItem('userFirstName');
-    let isAdmin = window.sessionStorage.getItem('userIsAdmin');
+  let isAdmin = window.sessionStorage.getItem('userIsAdmin');
+  
     if (userName != null && userName != '') {
         document.getElementById("loginBtn").innerHTML = "Hello" + " " + userName;
         document.getElementById("loginBtn").href = "";

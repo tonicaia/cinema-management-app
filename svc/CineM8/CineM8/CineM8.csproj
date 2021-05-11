@@ -400,6 +400,7 @@
     <Content Include="Scripts\twitter-bootstrap\scss\vendor\_rfs.scss" />
     <Content Include="Views\Movie\Movie.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
+    <Content Include="Views\Shared\_ReservationContainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

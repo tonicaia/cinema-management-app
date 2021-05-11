@@ -1,4 +1,4 @@
-﻿using CineM8.DAL;
+using CineM8.DAL;
 using CineM8.Models;
 using System.Collections.Generic;
 using System.Web.Http;
