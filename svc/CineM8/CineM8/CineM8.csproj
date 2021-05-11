@@ -194,12 +194,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
+    <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\CinemaHallDAL.cs" />
     <Compile Include="DAL\MovieDAL.cs" />
+    <Compile Include="DAL\PriceDAL.cs" />
     <Compile Include="DAL\ReservationDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="DAL\DBConnect.cs" />
@@ -208,6 +211,7 @@
     </Compile>
     <Compile Include="Models\CinemaHall.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCredentials.cs" />
@@ -257,6 +261,7 @@
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\home.js" />
+    <Content Include="Scripts\AddPrice.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\movie.js" />
@@ -394,12 +399,14 @@
     <Content Include="Scripts\twitter-bootstrap\scss\utilities\_visibility.scss" />
     <Content Include="Scripts\twitter-bootstrap\scss\vendor\_rfs.scss" />
     <Content Include="Views\Movie\Movie.cshtml" />
+    <Content Include="Views\Price\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="lib\" />
     <Folder Include="Views\CinemaHall\" />
     <Folder Include="Views\Movies\" />
+    <Folder Include="Views\Prices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

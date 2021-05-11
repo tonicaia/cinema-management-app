@@ -24,6 +24,7 @@ textarea {
     text-align: center;
     color: #fff;
     position: relative;
+    height: 50vh;
 }
 .jumbotron h1 {
         font-size: 70px;

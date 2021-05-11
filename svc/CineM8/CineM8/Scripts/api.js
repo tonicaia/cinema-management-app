@@ -31,6 +31,17 @@ function getAllHalls() {
         .catch(error => console.error("Unable to get halls", error));
 }
 
+function getAllPrices() {
+    fetch(PRICE_URL + "/GetPrices")
+        .then(response => response.json())
+        .then(data => {
+            prices = data;
+            console.log(prices)
+            fillPriceTable();
+        })
+        .catch(error => console.error("Unable to get prices", error));
+}
+
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
@@ -45,4 +56,5 @@ $(document).ready(function () {
     getAllUsers();
     getAllMovies();
     getAllHalls();
+    getAllPrices();
 });

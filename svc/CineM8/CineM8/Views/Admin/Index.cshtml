@@ -22,6 +22,9 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="pill" href="#halls">Halls</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#prices">Prices</a>
+    </li>
 </ul>
 
 <!-- Tab panes -->
@@ -75,6 +78,32 @@
             </thead>
         </table>
     </div>
+   
+    <div class="tab-pane container fade" id="prices">
+        <div class="alert alert-info">
+            <strong>Manage Price : </strong> This tab is used to manage the cinema price list
+        </div>
+
+        <div id="toolbar">
+            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addPriceModal" onclick="resetPriceErrorText()">Add</button>
+        </div>
+        <table id="prices-table"
+               class="table table-hover"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-page-list="[10, 25, 50, 100, all]">
+            <thead>
+                <tr>
+                    <th data-field="Id">Id</th>
+                    <th data-field="PriceAmount">Price</th>
+                    <th data-field="Description">Description</th>
+                    <th data-field="Weekend">Weekend</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
     <div class="tab-pane container fade" id="halls">
         <div class="alert alert-info">
@@ -98,6 +127,8 @@
             </thead>
         </table>
     </div>
+
+
 </div>
 
 <!-- MOVIE MODAL FOR UPDATE AND ADD-->
@@ -185,7 +216,6 @@
     </div>
 </div>
 <!-- END USERS MODAL -->
-
 <!-- HALL MODAL FOR ADD-->
 <div class="modal fade" id="addHallModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -213,3 +243,41 @@
     </div>
 </div>
 <!-- END HALL MODAL -->
+
+<!-- PRICE MODAL FOR ADD-->
+<div class="modal fade" id="addPriceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Price Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="price-amount" class="col-form-label">Price</label>
+                        <input type="text" class="form-control" id="price-amount">
+                    </div>
+                    <div class="text-danger" id="price-error"></div>
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Description</label>
+                        <input type="text" class="form-control" id="description">
+                    </div>
+                    <div class="text-danger" id="price-error"></div>
+                    <div class="form-group">
+                        <label for="weekend" class="col-form-label">Weekend</label>
+                        <input type="checkbox" class="form-control" id="weekend">
+                    </div>
+                    <div class="text-danger" id="price-error"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="save-button" class="btn btn-primary" onclick="AddPrice()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PRICE MODAL -->

@@ -1,7 +1,8 @@
 ﻿const HALLS_URL = 'api/halls';
 const USERS_URL = 'api/user';
 const MOVIES_URL = 'api/movies';
-const RESERVATIONS_URL = 'api/reservation'
+const RESERVATIONS_URL = 'api/reservation';
+const PRICE_URL = 'api/price';
 
 
 //an array to store all the active users
@@ -12,7 +13,8 @@ let loggedInUser;
 let movies = [];
 //an array to store all the halls
 let halls = [];
-
+//an array to store all the prices
+let prices = [];
 
 window.onload = function init() {
     let userName = window.sessionStorage.getItem('userFirstName');
