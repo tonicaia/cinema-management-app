@@ -1,4 +1,4 @@
-﻿let currentUserId = -1;
+﻿let currentUserId;
 
 function loginUser() {
     const emailTextbox = document.getElementById('username-login-form');
@@ -19,16 +19,25 @@ function loginUser() {
     })
         .then(response => response.json())
         .then((user) => {
+            // set SessionStorage for data to be persistent
             sessionStorage.setItem('userFirstName', user.FirstName);
             sessionStorage.setItem('userIsAdmin', user.IsAdmin);
-
+            sessionStorage.setItem('currentUserId', user.Id);
+            // clear inputs values
             emailTextbox.value = '';
             passwordTextbox.value = '';
             console.log(user);
             if (user) {
+                // if user logged in set buttons for myReservation and logout visible
+                const myReservationsTab = document.getElementById('myReservationsTab');
+                const logout = document.getElementById('logout');
+                myReservationsTab.style = "visibility:visible";
+                logout.style = "visibility:visible";
+                //loggedInUser gets user data
                 loggedInUser = user;
+                // change the button to a hello message according to user data
                 changeLoginButton(loggedInUser);
-                currentUserId = loggedInUser.Id;
+                currentUserId  = sessionStorage.getItem(currentUserId);
                 if (user.IsAdmin) {
                     document.getElementById("admin-tab").style.visibility = "visible";
                 }
@@ -40,17 +49,28 @@ function loginUser() {
   
 }
 let loginButton = document.getElementsByClassName("loginButton");
+const logoutButton = document.getElementById('logoutButton');
+console.log(logoutButton);
+
 
 function changeLoginButton(loggedInUser) {
+    // change style for login button to a hello message
     loginButton[0].href = "";
     loginButton[0].innerHTML = "Hello" + " " + loggedInUser.FirstName;
     loginButton[0].style.backgroundColor = "blue";
     loginButton[0].style.pointerEvents = "none";
-    const myReservationsTab = document.getElementById('myReservationsTab');
+    logoutButton.style = "display:block";
     const myReservations = document.getElementById('myReservations');
-    myReservationsTab.style = "display:block";
-    myReservations.href = RESERVATIONS_URL + '/GetAllReservationForUser/' + currentUserId;
-    
+    myReservations.href = `reservations/show/${loggedInUser.Id}`;
 }
+
+
+logoutButton.addEventListener(
+    'click', () => {
+        // clear session storage and reload page
+        sessionStorage.clear();
+        location.reload();
+    }
+)
 
 

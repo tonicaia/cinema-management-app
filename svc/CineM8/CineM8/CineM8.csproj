@@ -198,6 +198,7 @@
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\CinemaHallDAL.cs" />
@@ -401,6 +402,7 @@
     <Content Include="Views\Movie\Movie.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
     <Content Include="Views\Shared\_ReservationContainer.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
