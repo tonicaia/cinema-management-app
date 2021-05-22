@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="~/Content/movie.css">
     <link rel="stylesheet" href="~/Content/Register.css">
 </head>
-<body>
+<body class="container body-content">
+    @RenderBody()
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container" style="margin: 0">
             <div class="navbar-header">
@@ -41,13 +42,11 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Proiect II</p>
         </footer>
-    </div>
+  
 
     <!-- LOGIN MODAL-->
     <!-- Modal -->
