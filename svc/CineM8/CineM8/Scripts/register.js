@@ -14,12 +14,6 @@ $(document).ready(function () {
 });
 
 var check = 0;
-var btn = document.getElementById('register-backbutton-id');
-if (btn != null) {
-    btn.addEventListener("click", function () {
-       document.location.href = '../';
-    })
-}
 
 function getItems() {
     fetch(USERS_URL + "/getall")
@@ -65,11 +59,10 @@ function addItem() {
                 confirmPasswordTextbox.value = '';
                 phoneNumberTextbox.value = '';
                 cardNumberTextbox.value = '';
+                document.location.href = '../';
             })
             .catch(error => console.error('Unable to add item.', error));
-
     }
-    document.location.href = 'https://localhost:44300/';
 }
 
 function closeInput() {
