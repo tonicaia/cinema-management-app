@@ -17,7 +17,7 @@ textarea {
 }
 
 .jumbotron {
-    background-image: url("https://images.cdn4.stockunlimited.net/preview1300/cinema-background-with-movie-objects_1823382.jpg");
+    background-image: url("https://www.viva-media.ca/wp-content/uploads/header-culture-cinema.jpg");
     font-family: 'Montserrat', sans-serif;
     padding: 150px 0;
     background-size: cover;
@@ -25,6 +25,7 @@ textarea {
     color: #fff;
     position: relative;
     height: 50vh;
+    width: 90vw;
 }
 .jumbotron h1 {
         font-size: 70px;
