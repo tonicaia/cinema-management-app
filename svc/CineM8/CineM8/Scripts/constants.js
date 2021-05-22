@@ -20,6 +20,7 @@ window.onload = function init() {
     // make state for UI persistent
     let userName = window.sessionStorage.getItem('userFirstName');
     let isAdmin = window.sessionStorage.getItem('userIsAdmin');
+    let userId = window.sessionStorage.getItem('currentUserId')
 
     if (userName != null && userName != '') {
         document.getElementById("loginBtn").innerHTML = "Hello" + " " + userName;
@@ -31,12 +32,13 @@ window.onload = function init() {
         myReservationsTab.style = "visibility:visible";
         logout.style = "visibility:visible";
         const myReservations = document.getElementById('myReservations');
-        myReservations.href = `reservations/show/${loggedInUser.Id}`;
+        myReservations.href = `/reservations/show/?userId=${userId}`;
     }
     if (isAdmin === 'true' || isAdmin == true) {
+        if (document.getElementById("adminWrapper") !== null)
+            document.getElementById("adminWrapper").style.visibility = "visible";
         document.getElementById("admin-tab").style.visibility = "visible";
         const x = document.getElementById("admin-name");
         if (x) x.innerHTML = userName;
-
     }
 }

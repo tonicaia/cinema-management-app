@@ -17,7 +17,7 @@ textarea {
 }
 
 .jumbotron {
-    background-image: url("https://www.viva-media.ca/wp-content/uploads/header-culture-cinema.jpg");
+    background-image: url("./img/header-culture-cinema.jpg");
     font-family: 'Montserrat', sans-serif;
     padding: 150px 0;
     background-size: cover;
@@ -41,4 +41,42 @@ textarea {
 
 #login-modal-error{
     text-align:center;
+}
+
+#adminWrapper{
+    visibility:hidden;
+}
+
+.buttonIcons {
+    width: 20px;
+    height: 20px;
+}
+
+.removeIcon, .editIcon {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.removeIcon {
+    background: url("./img/trash-solid.svg");  
+}
+
+.editIcon {
+    background: url("./img/edit-solid.svg");
+}
+
+.eyeIcon {
+    background: url("./img/eye-solid.svg");
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width:20px;
+    height:10px;
+}
+
+.eyeSlashIcon {
+    background: url("./img/eye-slash-solid.svg");
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width: 20px;
+    height: 10px;
 }

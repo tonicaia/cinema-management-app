@@ -21,7 +21,7 @@ namespace CineM8.Controllers
             Debug.WriteLine(userId);
             dBConnect.OpenConnection();
             reservationDAL = new ReservationDAL();
-            List<Reservation> reservations = new List<Reservation>();
+            List<ReservationWithDetails> reservations = new List<ReservationWithDetails>();
             reservations = reservationDAL.GetAllReservationsForUser(Convert.ToInt32(userId));
             dBConnect.CloseConnection();
 

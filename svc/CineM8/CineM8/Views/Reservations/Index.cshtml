@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CineM8.Models.Reservation>
+﻿@model IEnumerable<CineM8.Models.ReservationWithDetails>
 
 @{
     ViewBag.Title = "Reservations";
@@ -13,28 +13,38 @@
             Film
         </th>
         <th>
-            Data
+            Ora incepere
+        </th>
+        <th>
+            Ora sfarsit
         </th>
         <th>
             Sala
         </th>
-        <th></th>
+        <th>
+            Nr. locuri
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CinemaHallId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfSeats) 
-            </td>
-
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MovieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HallNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NumberOfSeats)
+    </td>
+</tr>
     }
 
 </table>

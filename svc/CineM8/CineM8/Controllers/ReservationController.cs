@@ -47,13 +47,13 @@ namespace CineM8.Controllers
 
         [HttpGet]
         [Route("GetAllReservationForUser/{userId}")]
-        public JsonResult<List<Reservation>> GetAllReservationsForUser(int userId)
+        public JsonResult<List<ReservationWithDetails>> GetAllReservationsForUser(int userId)
         {
             dBConnect.OpenConnection();
-            List<Reservation> reservations = new List<Reservation>();
+            List<ReservationWithDetails> reservations = new List<ReservationWithDetails>();
             reservations = reservationDAL.GetAllReservationsForUser(userId);
             dBConnect.CloseConnection();
-            return Json<List<Reservation>>(reservations);
+            return Json<List<ReservationWithDetails>>(reservations);
         }
 
         [HttpGet]
@@ -84,11 +84,11 @@ namespace CineM8.Controllers
             DateTime endTime = Convert.ToDateTime(jObject["endTime"]);
             string seatsNumbers = jObject["seatsNumbers"].ToObject<string>();
 
-      Reservation reservation = new Reservation(userId, movieId, cinemaHallId, numberOfSeats, startTime, endTime, seatsNumbers);
+            Reservation reservation = new Reservation(userId, movieId, cinemaHallId, numberOfSeats, startTime, endTime, seatsNumbers);
 
 
-      reservationDAL.createReservation(reservation);
-      string comment = "Reservation created succesfully!";
+            reservationDAL.createReservation(reservation);
+            string comment = "Reservation created succesfully!";
             dBConnect.CloseConnection();
 
             return Json<string>(comment);

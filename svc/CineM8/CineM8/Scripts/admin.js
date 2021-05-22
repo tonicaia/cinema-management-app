@@ -25,10 +25,10 @@ function fillUsersTable() {
 function operateFormatter(value, row, index) {
     return [
         '<button class="btn btn-info editUser" data-toggle="modal" data-target="#updateUserModal">',
-        '<span class= "glyphicon glyphicon-edit" ></span >',
+        '<div class= "buttonIcons editIcon" ></div >',
         '</button > ',
         '<button class="btn btn-outline-danger removeUser">',
-        '<span class= "glyphicon glyphicon-trash" ></span >',
+        '<div class= "buttonIcons removeIcon" ></div >',
         '</button >'
     ].join('')
 }
@@ -103,10 +103,10 @@ function isRunningFormatter(value, row, index) {
 function operateMovieFormatter(value, row, index) {
     return [
         '<button class="btn btn-info editMovie" data-toggle="modal" data-target="#addUpdateMovieModal">',
-        '<span class= "glyphicon glyphicon-edit" ></span>',
+        '<div class= "buttonIcons editIcon" ></div >',
         '</button> ',
         '<button class="btn btn-outline-danger removeMovie">',
-        '<span class= "glyphicon glyphicon-trash" ></span>',
+        '<div class= "buttonIcons removeIcon" ></div >',
         '</button>'
     ].join('')
 }
@@ -187,7 +187,7 @@ function fillHallsTable() {
 function operateHallsFormatter(value, row, index) {
     return [
         '<button class="btn btn-outline-danger removeHall">',
-        '<span class= "glyphicon glyphicon-trash" ></span>',
+        '<div class= "buttonIcons removeIcon" ></div >',
         '</button>'
     ].join('')
 }

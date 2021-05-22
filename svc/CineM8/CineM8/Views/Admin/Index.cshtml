@@ -3,295 +3,298 @@
 }
 <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js">
 </script>
+<link rel="stylesheet" href="~/Content/Site.css" />
 
-<div class="page-header">
-    <h1>Admin View <small>Hello <span id="admin-name"></span>, you are currently logged in as an admin</small></h1>
+<div id="adminWrapper">
+    <div class="page-header">
+        <h1>Admin View <small>Hello <span id="admin-name"></span>, you are currently logged in as an admin</small></h1>
+    </div>
+
+    <!-- Nav pills -->
+    <ul class="nav nav-pills">
+        <li class="navbar-brand">
+            Manage
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#users">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#movies" onclick="getAllMovies()">Movies</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#halls">Halls</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#prices">Prices</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane container active" id="users">
+            <div class="alert alert-info">
+                <strong>Manage Users : </strong> This tab is used to manage the registered users
+            </div>
+            <table id="users-table"
+                   class="table table-hover"
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-page-list="[10, 25, 50, 100, all]">
+                <thead>
+                    <tr>
+                        <th data-field="Id">Id</th>
+                        <th data-field="FirstName">Firstname</th>
+                        <th data-field="LastName">Lastname</th>
+                        <th data-field="Email">Email</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+
+        <div class="tab-pane container fade" id="movies">
+            <div class="alert alert-info">
+                <strong>Manage Movies : </strong> This tab is used to manage the listed movies
+            </div>
+            <div id="toolbar">
+                <button id="Add-Movie" class="btn btn-success" data-toggle="modal" data-target="#addUpdateMovieModal" onclick="changedoUpdate(); resetText(); resetMovieErrorText()">Add</button>
+            </div>
+            <table id="movies-table"
+                   class="table table-hover"
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-page-list="[10, 25, 50, 100, all]">
+                <thead>
+                    <tr>
+                        <th data-field="Id">Id</th>
+                        <th data-field="Name">Name</th>
+                        <th data-field="Description">Description</th>
+                        <th data-field="Length">Length</th>
+                        <th data-field="IsRunning">IsRunning</th>
+                        <th data-field="ImageURL">ImageURL</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="tab-pane container fade" id="prices">
+            <div class="alert alert-info">
+                <strong>Manage Price : </strong> This tab is used to manage the cinema price list
+            </div>
+
+            <div id="toolbar">
+                <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addPriceModal" onclick="resetPriceErrorText()">Add</button>
+            </div>
+            <table id="prices-table"
+                   class="table table-hover"
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-page-list="[10, 25, 50, 100, all]">
+                <thead>
+                    <tr>
+                        <th data-field="Id">Id</th>
+                        <th data-field="PriceAmount">Price</th>
+                        <th data-field="Description">Description</th>
+                        <th data-field="Weekend">Weekend</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="tab-pane container fade" id="halls">
+            <div class="alert alert-info">
+                <strong>Manage Halls : </strong> This tab is used to manage the cinema halls
+            </div>
+            <div id="toolbar">
+                <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addHallModal" onclick="resetHallErrorText()">Add</button>
+            </div>
+            <table id="halls-table"
+                   class="table table-hover"
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-page-list="[10, 25, 50, 100, all]">
+                <thead>
+                    <tr>
+                        <th data-field="Id">Id</th>
+                        <th data-field="Capacity">Capacity</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+    </div>
+
+    <!-- MOVIE MODAL FOR UPDATE AND ADD-->
+    <div class="modal fade" id="addUpdateMovieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Update Movie Panel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="movie-name" class="col-form-label">Name</label>
+                            <div class="text-danger" id="movie-name-error"></div>
+                            <input type="text" class="form-control" id="movie-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-description" class="col-form-label">Description</label>
+                            <div class="text-danger" id="movie-description-error"></div>
+                            <textarea class="form-control" id="movie-description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-length" class="col-form-label">Length</label>
+                            <div class="text-danger" id="movie-length-error"></div>
+                            <input type="number" class="form-control" id="movie-length">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-isRunning" class="col-check-label">Running</label>
+                            <input type="checkbox" class="form-check-input" id="movie-isRunning">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-ImageURL" class="col-form-label">ImageURL</label>
+                            <div class="text-danger" id="movie-url-error"></div>
+                            <input type="text" class="form-control" id="movie-imageURL">
+                        </div>
+                        <div class="text-danger" id="movie-error"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close-button-modal-movie" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary" onclick="AddUpdateMovie()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MOVIE MODAL -->
+    <!-- USERS MODAL FOR UPDATE-->
+    <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update User Panel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="user-firstname" class="col-form-label">Firstname</label>
+                            <div class="text-danger" id="user-firstname-error"></div>
+                            <input type="text" class="form-control" id="user-firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-lastname" class="col-form-label">LastName</label>
+                            <div class="text-danger" id="user-lastname-error"></div>
+                            <input type="text" class="form-control" id="user-lastname">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email" class="col-form-label">Email</label>
+                            <div class="text-danger" id="user-email-error"></div>
+                            <input type="text" class="form-control" id="user-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-phoneNb" class="col-form-label">Phone Number</label>
+                            <div class="text-danger" id="user-phoneNb-error"></div>
+                            <input type="text" class="form-control" id="user-phoneNb">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-cardNb" class="col-form-label">Card Number</label>
+                            <div class="text-danger" id="user-cardNb-error"></div>
+                            <input type="text" class="form-control" id="user-cardNb">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-isAdmin" class="col-check-label">Admin</label>
+                            <input type="checkbox" class="form-check-input" id="user-isAdmin">
+                        </div>
+                        <div class="text-danger" id="user-error"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close-button-movie-modal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary" onclick="UpdateUser()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END USERS MODAL -->
+    <!-- HALL MODAL FOR ADD-->
+    <div class="modal fade" id="addHallModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Hall Panel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="hall-capacity" class="col-form-label">Capacity</label>
+                            <input type="text" class="form-control" id="hall-capacity">
+                        </div>
+                        <div class="text-danger" id="hall-error"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary" onclick="AddHall()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END HALL MODAL -->
+    <!-- PRICE MODAL FOR ADD-->
+    <div class="modal fade" id="addPriceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Price Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="price-amount" class="col-form-label">Price</label>
+                            <input type="text" class="form-control" id="price-amount">
+                        </div>
+                        <div class="text-danger" id="price-error"></div>
+                        <div class="form-group">
+                            <label for="description" class="col-form-label">Description</label>
+                            <input type="text" class="form-control" id="description">
+                        </div>
+                        <div class="text-danger" id="price-error"></div>
+                        <div class="form-group">
+                            <label for="weekend" class="col-form-label">Weekend</label>
+                            <input type="checkbox" class="form-control" id="weekend">
+                        </div>
+                        <div class="text-danger" id="price-error"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary" onclick="AddPrice()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PRICE MODAL -->
+
 </div>
-
-<!-- Nav pills -->
-<ul class="nav nav-pills">
-    <li class="navbar-brand">
-        Manage
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="pill" href="#users">Users</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#movies" onclick="getAllMovies()">Movies</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#halls">Halls</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#prices">Prices</a>
-    </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane container active" id="users">
-        <div class="alert alert-info">
-            <strong>Manage Users : </strong> This tab is used to manage the registered users
-        </div>
-        <table id="users-table"
-               class="table table-hover"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-page-list="[10, 25, 50, 100, all]">
-            <thead>
-                <tr>
-                    <th data-field="Id">Id</th>
-                    <th data-field="FirstName">Firstname</th>
-                    <th data-field="LastName">Lastname</th>
-                    <th data-field="Email">Email</th>
-                </tr>
-            </thead>
-
-        </table>
-    </div>
-
-    <div class="tab-pane container fade" id="movies">
-        <div class="alert alert-info">
-            <strong>Manage Movies : </strong> This tab is used to manage the listed movies
-        </div>
-        <div id="toolbar">
-            <button id="Add-Movie" class="btn btn-success" data-toggle="modal" data-target="#addUpdateMovieModal" onclick="changedoUpdate(); resetText(); resetMovieErrorText()">Add</button>
-        </div>
-        <table id="movies-table"
-               class="table table-hover"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-page-list="[10, 25, 50, 100, all]">
-            <thead>
-                <tr>
-                    <th data-field="Id">Id</th>
-                    <th data-field="Name">Name</th>
-                    <th data-field="Description">Description</th>
-                    <th data-field="Length">Length</th>
-                    <th data-field="IsRunning">IsRunning</th>
-                    <th data-field="ImageURL">ImageURL</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-   
-    <div class="tab-pane container fade" id="prices">
-        <div class="alert alert-info">
-            <strong>Manage Price : </strong> This tab is used to manage the cinema price list
-        </div>
-
-        <div id="toolbar">
-            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addPriceModal" onclick="resetPriceErrorText()">Add</button>
-        </div>
-        <table id="prices-table"
-               class="table table-hover"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-page-list="[10, 25, 50, 100, all]">
-            <thead>
-                <tr>
-                    <th data-field="Id">Id</th>
-                    <th data-field="PriceAmount">Price</th>
-                    <th data-field="Description">Description</th>
-                    <th data-field="Weekend">Weekend</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-    <div class="tab-pane container fade" id="halls">
-        <div class="alert alert-info">
-            <strong>Manage Halls : </strong> This tab is used to manage the cinema halls
-        </div>
-        <div id="toolbar">
-            <button id="Add" class="btn btn-success" data-toggle="modal" data-target="#addHallModal" onclick="resetHallErrorText()">Add</button>
-        </div>
-        <table id="halls-table"
-               class="table table-hover"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-page-list="[10, 25, 50, 100, all]">
-            <thead>
-                <tr>
-                    <th data-field="Id">Id</th>
-                    <th data-field="Capacity">Capacity</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-
-</div>
-
-<!-- MOVIE MODAL FOR UPDATE AND ADD-->
-<div class="modal fade" id="addUpdateMovieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add/Update Movie Panel</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="movie-name" class="col-form-label">Name</label>
-                        <div class="text-danger" id="movie-name-error"></div>
-                        <input type="text" class="form-control" id="movie-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="movie-description" class="col-form-label">Description</label>
-                        <div class="text-danger" id="movie-description-error"></div>
-                        <textarea class="form-control" id="movie-description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="movie-length" class="col-form-label">Length</label>
-                        <div class="text-danger" id="movie-length-error"></div>
-                        <input type="number" class="form-control" id="movie-length">
-                    </div>
-                    <div class="form-group">
-                        <label for="movie-isRunning" class="col-check-label">Running</label>
-                        <input type="checkbox" class="form-check-input" id="movie-isRunning">
-                    </div>
-                    <div class="form-group">
-                        <label for="movie-ImageURL" class="col-form-label">ImageURL</label>
-                        <div class="text-danger" id="movie-url-error"></div>
-                        <input type="text" class="form-control" id="movie-imageURL">
-                    </div>
-                    <div class="text-danger" id="movie-error"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="close-button-modal-movie" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="save-button" class="btn btn-primary" onclick="AddUpdateMovie()">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END MOVIE MODAL -->
-<!-- USERS MODAL FOR UPDATE-->
-<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Update User Panel</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="user-firstname" class="col-form-label">Firstname</label>
-                        <div class="text-danger" id="user-firstname-error"></div>
-                        <input type="text" class="form-control" id="user-firstname">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-lastname" class="col-form-label">LastName</label>
-                        <div class="text-danger" id="user-lastname-error"></div>
-                        <input type="text" class="form-control" id="user-lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-email" class="col-form-label">Email</label>
-                        <div class="text-danger" id="user-email-error"></div>
-                        <input type="text" class="form-control" id="user-email">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-phoneNb" class="col-form-label">Phone Number</label>
-                        <div class="text-danger" id="user-phoneNb-error"></div>
-                        <input type="text" class="form-control" id="user-phoneNb">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-cardNb" class="col-form-label">Card Number</label>
-                        <div class="text-danger" id="user-cardNb-error"></div>
-                        <input type="text" class="form-control" id="user-cardNb">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-isAdmin" class="col-check-label">Admin</label>
-                        <input type="checkbox" class="form-check-input" id="user-isAdmin">
-                    </div>
-                    <div class="text-danger" id="user-error"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="close-button-movie-modal" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="save-button" class="btn btn-primary" onclick="UpdateUser()">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END USERS MODAL -->
-<!-- HALL MODAL FOR ADD-->
-<div class="modal fade" id="addHallModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Hall Panel</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="hall-capacity" class="col-form-label">Capacity</label>
-                        <input type="text" class="form-control" id="hall-capacity">
-                    </div>
-                    <div class="text-danger" id="hall-error"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="save-button" class="btn btn-primary" onclick="AddHall()">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END HALL MODAL -->
-
-<!-- PRICE MODAL FOR ADD-->
-<div class="modal fade" id="addPriceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Price Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="price-amount" class="col-form-label">Price</label>
-                        <input type="text" class="form-control" id="price-amount">
-                    </div>
-                    <div class="text-danger" id="price-error"></div>
-                    <div class="form-group">
-                        <label for="description" class="col-form-label">Description</label>
-                        <input type="text" class="form-control" id="description">
-                    </div>
-                    <div class="text-danger" id="price-error"></div>
-                    <div class="form-group">
-                        <label for="weekend" class="col-form-label">Weekend</label>
-                        <input type="checkbox" class="form-control" id="weekend">
-                    </div>
-                    <div class="text-danger" id="price-error"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="save-button" class="btn btn-primary" onclick="AddPrice()">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END PRICE MODAL -->

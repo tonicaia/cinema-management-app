@@ -65,7 +65,7 @@ function changeLoginButton(loggedInUser) {
     loginButton[0].style.pointerEvents = "none";
     logoutButton.style = "display:block";
     const myReservations = document.getElementById('myReservations');
-    myReservations.href = `reservations/show/${loggedInUser.Id}`;
+    myReservations.href = `/reservations/show/?userId=${loggedInUser.Id}`;
 }
 
 

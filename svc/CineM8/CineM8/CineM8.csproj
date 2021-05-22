@@ -215,6 +215,7 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\ReservationWithDetails.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -226,6 +227,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\home.css" />
+    <Content Include="Content\img\edit-solid.svg" />
+    <Content Include="Content\img\eye-slash-solid.svg" />
+    <Content Include="Content\img\eye-solid.svg" />
+    <Content Include="Content\img\header-culture-cinema.jpg" />
+    <Content Include="Content\img\trash-solid.svg" />
     <Content Include="Content\movie.css" />
     <Content Include="Content\Register.css" />
     <Content Include="favicon.ico" />

@@ -3,12 +3,12 @@ $(document).ready(function () {
         event.preventDefault();
         if ($('#show_hide_password input').attr("type") === "text") {
             $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass("fa-eye-slash");
-            $('#show_hide_password i').removeClass("fa-eye");
+            $('#show_hide_password div').addClass("eyeSlashIcon");
+            $('#show_hide_password div').removeClass("eyeIcon");
         } else if ($('#show_hide_password input').attr("type") === "password") {
             $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass("fa-eye-slash");
-            $('#show_hide_password i').addClass("fa-eye");
+            $('#show_hide_password div').removeClass("eyeSlashIcon");
+            $('#show_hide_password div').addClass("eyeIcon");
         }
     });
 });
@@ -17,7 +17,7 @@ var check = 0;
 var btn = document.getElementById('register-backbutton-id');
 if (btn != null) {
     btn.addEventListener("click", function () {
-        document.location.href = '../';
+       document.location.href = '../';
     })
 }
 
@@ -39,16 +39,15 @@ function addItem() {
     const cardNumberTextbox = document.getElementById('card-number');
 
     const item = {
-        isComplete: false,
         firstName: addFirstNameTextbox.value.trim(),
         lastName: addLastNameTextBox.value.trim(),
         email: addEmailTextbox.value.trim(),
         password: addPasswordTextbox.value.trim(),
         confirm: confirmPasswordTextbox.value.trim(),
-        phoneNumber: phoneNumberTextbox.value.trim(),
-        card: cardNumberTextbox.value.trim()
+        phoneNb: phoneNumberTextbox.value.trim(),
+        cardNb: cardNumberTextbox.value.trim()
     };
-    if (isValid(item)) {
+    if (isValidRegister(item)) {
         fetch(USERS_URL + "/create", {
             method: 'POST',
             headers: {
@@ -77,13 +76,13 @@ function closeInput() {
     document.getElementById('editForm').style.display = 'none';
 }
 
-function isEmail(email) {
+function isEmailRegister(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
 
-function isSamePass(pass, confirmPass) {
-    if (pass == confirmPass) {
+function isSamePassRegister(pass, confirmPass) {
+    if (pass === confirmPass) {
         document.getElementById('password-confirm-error').innerHTML = "";
         return true;
     }
@@ -91,7 +90,7 @@ function isSamePass(pass, confirmPass) {
     return false;
 }
 
-function isValidNumber(phoneNumber) {
+function isValidPhoneNumberRegister(phoneNumber) {
     if (phoneNumber.length === 10) {
         document.getElementById('phoneNb-error').innerHTML = "";
         return true;
@@ -100,7 +99,7 @@ function isValidNumber(phoneNumber) {
     return false;
 }
 
-function FirstNameisEmpty(firstName) {
+function FirstNameisEmptyRegister(firstName) {
     if (!isEmpty(firstName)) {
         document.getElementById('firstname-error').innerHTML = "";
         return true;
@@ -109,7 +108,7 @@ function FirstNameisEmpty(firstName) {
     return false;
 }
 
-function PasswordNotValid(password) {
+function PasswordNotValidRegister(password) {
     if (password.length >= 4) {
         document.getElementById('password-error').innerHTML = "";
         return true;
@@ -118,7 +117,7 @@ function PasswordNotValid(password) {
     return false;
 }
 
-function LastNameisEmpty(lastName) {
+function LastNameisEmptyRegister(lastName) {
     if (!isEmpty(lastName)) {
         document.getElementById('lastname-error').innerHTML = "";
         return true;
@@ -127,20 +126,20 @@ function LastNameisEmpty(lastName) {
     return false;
 }
 
-function validateCardNumber(number) {
+function validateCardNumberRegister(number) {
     var regex = new RegExp("^[0-9]{16}$");
     if (!regex.test(number)) {
-        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
+        document.getElementById('cardNb-error').innerHTML = "The card number is not valid!!";
         return false;
     }
     if (luhnCheck(number) === true)
-        document.getElementById('user-cardNb-error').innerHTML = "";
+        document.getElementById('cardNb-error').innerHTML = "";
     else
-        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
+        document.getElementById('cardNb-error').innerHTML = "The card number is not valid!!";
     return luhnCheck(number);
 }
 
-function luhnCheck(val) {
+function luhnCheckRegister(val) {
     var sum = 0;
     for (var i = 0; i < val.length; i++) {
         var intVal = parseInt(val.substr(i, 1));
@@ -155,8 +154,8 @@ function luhnCheck(val) {
     return (sum % 10) == 0;
 }
 
-function isValid(item) {
-    if (isEmail(item.email)) {
+function isValidRegister(item) {
+    if (isEmailRegister(item.email)) {
         document.getElementById('email-error').innerHTML = "";
         check++;
     }
@@ -164,34 +163,33 @@ function isValid(item) {
         document.getElementById('email-error').innerHTML = "The email address is unavailable!!";
     }
 
-    if (isValidNumber(item.phoneNumber)) {
+    if (isValidPhoneNumberRegister(item.phoneNb)) {
         check++;
     }
 
-    if (FirstNameisEmpty(item.firstName)) {
+    if (FirstNameisEmptyRegister(item.firstName)) {
         check++;
     }
 
-    if (PasswordNotValid(item.password)) {
+    if (PasswordNotValidRegister(item.password)) {
         check++;
     }
 
-    if (LastNameisEmpty(item.lastName)) {
+    if (LastNameisEmptyRegister(item.lastName)) {
         check++;
     }
 
-    if (isSamePass(item.password, item.confirm)) {
+    if (isSamePassRegister(item.password, item.confirm)) {
         check++;
     }
 
-    if (validateCardNumber(item.card)) {
+    if (validateCardNumberRegister(item.cardNb)) {
         check++;
     }
 
     if (check === 7) {
         return true;
     }
-
     return false;
 
 }
