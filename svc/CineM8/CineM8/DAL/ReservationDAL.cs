@@ -1,6 +1,7 @@
-﻿using CineM8.Models;
+using CineM8.Models;
 using MySqlConnector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -37,7 +38,8 @@ namespace CineM8.DAL
                     int numberOfSeats = Convert.ToInt32(dr["numberOfSeats"]);
                     DateTime startTime = Convert.ToDateTime(dr["startTime"]);
                     DateTime endTime = Convert.ToDateTime(dr["endTime"]);
-                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime);
+                    string seatsNumbers = (string)dr["seatsNumbers"];
+                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime, seatsNumbers);
 
                     reservations.Add(reservation);
                 }
@@ -79,7 +81,8 @@ namespace CineM8.DAL
                     int numberOfSeats = Convert.ToInt32(dr["numberOfSeats"]);
                     DateTime startTime = Convert.ToDateTime(dr["startTime"]);
                     DateTime endTime = Convert.ToDateTime(dr["endTime"]);
-                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime);
+                    string seatsNumbers = (string)dr["seatsNumbers"];
+                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime, seatsNumbers);
 
                     reservations.Add(reservation);
                 }
@@ -119,7 +122,8 @@ namespace CineM8.DAL
                     int numberOfSeats = Convert.ToInt32(dr["numberOfSeats"]);
                     DateTime startTime = Convert.ToDateTime(dr["startTime"]);
                     DateTime endTime = Convert.ToDateTime(dr["endTime"]);
-                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime);
+                    string seatsNumbers = (string)dr["seatsNumbers"];
+                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime, seatsNumbers);
 
                     reservations.Add(reservation);
                 }
@@ -137,15 +141,16 @@ namespace CineM8.DAL
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "INSERT INTO Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime) " +
-                    "VALUES(@userID, @movieID, @hallID, @numberOfSeats, @startTime, @endTime)";
+                comm.CommandText = "INSERT INTO reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime, seatsNumbers) " +
+                    "VALUES(@userID, @movieID, @hallID, @numberOfSeats, @startTime, @endTime, @seatsNumbers)";
                 comm.Parameters.AddWithValue("@userID", reservation.UserId);
                 comm.Parameters.AddWithValue("@movieID", reservation.MovieId);
                 comm.Parameters.AddWithValue("@hallID", reservation.CinemaHallId);
                 comm.Parameters.AddWithValue("@numberOfSeats", reservation.NumberOfSeats);
                 comm.Parameters.AddWithValue("@startTime", reservation.StartTime);
                 comm.Parameters.AddWithValue("@endTime", reservation.EndTime);
-                try
+                comm.Parameters.AddWithValue("@seatsNumbers", reservation.SeatsNumbers);
+        try
                 {
                     comm.ExecuteNonQuery();
                 }
@@ -183,7 +188,8 @@ namespace CineM8.DAL
                     int numberOfSeats = Convert.ToInt32(dr["numberOfSeats"]);
                     DateTime startTime = Convert.ToDateTime(dr["startTime"]);
                     DateTime endTime = Convert.ToDateTime(dr["endTime"]);
-                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime);
+                    string seatsNumbers = (string)dr["seatsNumbers"];
+                    Reservation reservation = new Reservation(userID, movieID, hallID, numberOfSeats, startTime, endTime, seatsNumbers);
 
                     reservations.Add(reservation);
                 }
@@ -204,14 +210,15 @@ namespace CineM8.DAL
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
                 comm.CommandText = "update Reservation set userID = @userID , " +
-                    "movieID = @movieID, hallID = @hallID, numberOfSeats = @numberOfSeats, startTime = @startTime, " +
-                    "endTime = @endTime where reservationID = @id";
+                    "movieID = @movieID, hallID = @hallID, numberOfSeats = @numberOfSeats, startTime = @startTime, endTime = @endTime" +
+                    "seatsNumbers = @seatsNumbers where reservationID = @id";
                 comm.Parameters.AddWithValue("@userID", reservation.UserId);
                 comm.Parameters.AddWithValue("@movieID", reservation.MovieId);
                 comm.Parameters.AddWithValue("@hallID", reservation.CinemaHallId);
                 comm.Parameters.AddWithValue("@numberOfSeats", reservation.NumberOfSeats);
                 comm.Parameters.AddWithValue("@startTime", reservation.StartTime);
                 comm.Parameters.AddWithValue("@endTime", reservation.EndTime);
+                comm.Parameters.AddWithValue("@seatsNumbers", reservation.SeatsNumbers);
                 try
                 {
                     comm.ExecuteNonQuery();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace CineM8.Models
@@ -10,31 +10,38 @@ namespace CineM8.Models
         private int movieId;
         private int cinemaHallId;
         private int numberOfSeats;
-        private BitArray seatsNumbers;
         private DateTime startTime;
         private DateTime endTime;
+        private string seatsNumbers;
 
-        public Reservation(int userID, int movieID, int hallID, int numberOfSeats, DateTime startTime, DateTime endTime)
+    public Reservation()
+    {
+      
+    }
+
+    public Reservation(int userID, int movieID, int hallID, int numberOfSeats, DateTime startTime, DateTime endTime, string seatsNumbers)
         {
             userId = userID;
             movieId = movieID;
-            this.numberOfSeats = numberOfSeats;
-            this.startTime = startTime;
-            this.endTime = endTime;
-        }
-
-        //TODO constructors, getters and setters
-        // DONE : constructors, getters and setters
-
-        public Reservation(int userId, int movieId, int cinemaHallId, int numberOfSeats, DateTime startTime, DateTime endTime, BitArray seatsNumbers)
-        {
-            this.userId = userId;
-            this.cinemaHallId = cinemaHallId;
+            this.cinemaHallId = hallID;
             this.numberOfSeats = numberOfSeats;
             this.startTime = startTime;
             this.endTime = endTime;
             this.seatsNumbers = seatsNumbers;
         }
+
+        //TODO constructors, getters and setters
+        // DONE : constructors, getters and setters
+
+        //public Reservation(int userId, int movieId, int cinemaHallId, int numberOfSeats, DateTime startTime, DateTime endTime, BitArray seatsNumbers)
+        //{
+        //    this.userId = userId;
+        //    this.cinemaHallId = cinemaHallId;
+        //    this.numberOfSeats = numberOfSeats;
+        //    this.startTime = startTime;
+        //    this.endTime = endTime;
+        //    this.seatsNumbers = seatsNumbers;
+        //}
 
         public int Id
         {
@@ -76,6 +83,12 @@ namespace CineM8.Models
         {
             get => endTime;
             set => endTime = value;
+        }
+
+        public string SeatsNumbers
+        {
+            get => seatsNumbers;
+            set => seatsNumbers = value;
         }
 
     }

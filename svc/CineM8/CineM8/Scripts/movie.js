@@ -47,24 +47,29 @@ getHall();
 submitButton.addEventListener("click", function () {
   console.log(seatsReserved);
 
-  //const reservation = {
-  //  userId: 1,
-  //  movieId: 1,
-  //  cinemaHallId: 1,
-  //  numberOfSeats: seatsReserved.length,
-  //  seatsNumbers: 
-  //};
+  seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
 
-  // private int id;
-  //      private int userId;
-  //      private int movieId;
-  //      private int cinemaHallId;
-  //      private int numberOfSeats;
-  //      private BitArray seatsNumbers;
-  //      private DateTime startTime;
-  //      private DateTime endTime;
+  console.log(seatsBits);
 
-  fetch('https://localhost:44300/api/reservation/PostNewReservation', { method: 'Post' })
+  const reservation = {
+    userId: 4,
+    movieId: 2,
+    cinemaHallId: 3,
+    numberOfSeats: seatsReserved.length,
+    seatsNumbers: seatsBits.toString(),
+    startTime: "2021-01-01 12:00:00",
+    endTime: "2021-01-01 12:00:00"
+  };
+
+  fetch('https://localhost:44300/api/reservation/PostNewReservation', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reservation),
+  }).then(response => response.json())
+    .catch(error => console.error('Unable to insert reservation!', error));
 });
 
 
