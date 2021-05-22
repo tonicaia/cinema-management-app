@@ -25,11 +25,14 @@
         @Html.ActionLink("CineM8", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
       </div>
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-          <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
-          <li id="myReservationsTab" style="display:none;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
-        </ul>
+          <ul class="nav navbar-nav">
+              <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+              <li>@Html.ActionLink("Prices", "Index", "Prices", new { area = "" }, null)</li>
+              <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
+              <!--<li id="myReservationsTab" style="visibility:hidden">@Html.ActionLink("Reservations", "Index", "Reservation", new { area = "" }, null)</li>-->
+              <li id="logout" style="visibility: hidden;"><a type="button" id="logoutButton" class="logoutButton" href="#" style="color:white;"> Logout </a></li>
+              <li id="myReservationsTab" style="visibility: hidden;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
+          </ul>
         <ul class="nav navbar-nav" style="float:right;">
           <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
         </ul>
@@ -57,6 +60,7 @@
   @Scripts.Render("~/Scripts/UpdateUser.js")
   @Scripts.Render("~/Scripts/api.js")
   @Scripts.Render("~/Scripts/AddHall.js")
+  @Scripts.Render("~/Scripts/AddPrice.js")
   @Scripts.Render("~/Scripts/movie.js")
   @RenderSection("scripts", required: false)
 

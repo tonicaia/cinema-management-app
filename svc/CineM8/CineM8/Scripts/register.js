@@ -15,10 +15,11 @@ $(document).ready(function () {
 
 var check = 0;
 var btn = document.getElementById('register-backbutton-id');
-
-btn.addEventListener("click", function () {
-    document.location.href = '../';
-})
+if (btn != null) {
+    btn.addEventListener("click", function () {
+        document.location.href = '../';
+    })
+}
 
 function getItems() {
     fetch(USERS_URL + "/getall")

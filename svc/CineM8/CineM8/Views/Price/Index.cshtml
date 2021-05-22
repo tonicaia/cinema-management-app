@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CineM8.Models.Price>
+
+@{
+    ViewBag.Title = "Prices";
+}
+
+<h2>Prices</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+           Pret
+        </th>
+        <th>
+            Tip
+        </th>
+        <th>
+            Disponibilitate
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceAmount) RON
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @if (item.Weekend == 1)
+            {
+                <text>Vineri 16:00 - Duminica 23:30</text>
+            }
+            else
+            {
+                <text>Luni 9:30 - Vineri 16:00</text>
+            }
+
+
+        </td>
+       
+    </tr>
+}
+
+</table>

@@ -207,3 +207,14 @@ function deleteHall(id) {
         .then(response => response.json())
     alert("Succes");
 }
+
+//Prices
+
+function fillPriceTable() {
+    $('#prices-table').bootstrapTable({
+        data: prices,
+        columns: [{}, {}, {}, {}]
+
+    });
+    $('#prices-table').bootstrapTable('refresh')
+}
