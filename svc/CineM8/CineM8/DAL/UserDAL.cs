@@ -191,14 +191,14 @@ namespace CineM8.DAL
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "Select * from Users where email = @Email";
+                comm.CommandText = "Select Count(*) from Users where email = @Email";
                 comm.Parameters.AddWithValue("@Email", Email);
                 Debug.WriteLine(Email);
                 Debug.WriteLine(comm.ExecuteNonQuery());
 
                 try
                 {
-                    if (comm.ExecuteNonQuery() > 0)
+                    if (Convert.ToInt32(comm.ExecuteScalar()) > 0)
                         return true;
                 }
                 catch (Exception e)
