@@ -130,10 +130,13 @@ function LastNameisEmpty(lastName) {
 function validateCardNumber(number) {
     var regex = new RegExp("^[0-9]{16}$");
     if (!regex.test(number)) {
-        document.getElementById('cardNb-error').innerHTML = "The card number is not valid!!";
+        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
         return false;
     }
-    document.getElementById('cardNb-error').innerHTML = "";
+    if (luhnCheck(number) === true)
+        document.getElementById('user-cardNb-error').innerHTML = "";
+    else
+        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
     return luhnCheck(number);
 }
 

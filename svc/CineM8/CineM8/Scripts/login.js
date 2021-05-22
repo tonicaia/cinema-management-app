@@ -1,8 +1,10 @@
 ﻿let currentUserId;
+const loginModalError = document.querySelector('#login-modal-error');
+const loginBtn = document.querySelector('#loginBtn');
 
 function loginUser() {
     const emailTextbox = document.getElementById('username-login-form');
-    const passwordTextbox = document.getElementById('password-login-form'); 
+    const passwordTextbox = document.getElementById('password-login-form');
 
     const item = {
         email: emailTextbox.value.trim(),
@@ -15,19 +17,18 @@ function loginUser() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify(item),
+        body: JSON.stringify(item),
     })
         .then(response => response.json())
         .then((user) => {
-            // set SessionStorage for data to be persistent
-            sessionStorage.setItem('userFirstName', user.FirstName);
-            sessionStorage.setItem('userIsAdmin', user.IsAdmin);
-            sessionStorage.setItem('currentUserId', user.Id);
             // clear inputs values
             emailTextbox.value = '';
             passwordTextbox.value = '';
-            console.log(user);
             if (user) {
+                // set SessionStorage for data to be persistent
+                sessionStorage.setItem('userFirstName', user.FirstName);
+                sessionStorage.setItem('userIsAdmin', user.IsAdmin);
+                sessionStorage.setItem('currentUserId', user.Id);
                 // if user logged in set buttons for myReservation and logout visible
                 const myReservationsTab = document.getElementById('myReservationsTab');
                 const logout = document.getElementById('logout');
@@ -37,16 +38,19 @@ function loginUser() {
                 loggedInUser = user;
                 // change the button to a hello message according to user data
                 changeLoginButton(loggedInUser);
-                currentUserId  = sessionStorage.getItem(currentUserId);
+                currentUserId = sessionStorage.getItem(currentUserId);
                 if (user.IsAdmin) {
                     document.getElementById("admin-tab").style.visibility = "visible";
                 }
                 $("#close-button").click();
             }
-            
+            else {
+                loginModalError.innerHTML = "Email and password don't match";
+            }
+
         })
         .catch(error => console.error('Unable to login!', error));
-  
+
 }
 let loginButton = document.getElementsByClassName("loginButton");
 const logoutButton = document.getElementById('logoutButton');
@@ -72,5 +76,8 @@ logoutButton.addEventListener(
         location.reload();
     }
 )
+
+loginBtn.addEventListener('click', () => loginModalError.innerHTML = "")
+
 
 

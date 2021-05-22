@@ -1,37 +1,47 @@
 ﻿var check = 0;
 function UpdateUser() {
 
-    check = 0 ;
+    check = 0;
     const firstnameTextBox = document.getElementById('user-firstname');
     const lastnameTextBox = document.getElementById('user-lastname');
     const emailTextBox = document.getElementById('user-email');
+    const phoneNbTextBox = document.getElementById('user-phoneNb');
+    const cardNbTextBox = document.getElementById('user-cardNb');
+    const isAdminCheckBox = document.getElementById('user-isAdmin');
 
     const user = {
         firstname: firstnameTextBox.value.trim(),
         lastname: lastnameTextBox.value.trim(),
         email: emailTextBox.value.trim(),
-
+        phoneNb: phoneNbTextBox.value.trim(),
+        cardNb: cardNbTextBox.value.trim(),
+        isAdmin: isAdminCheck(isAdminCheckBox)
     };
 
     if (validUser(user)) {
         fetch(USERS_URL + "/update/" + idOfUser, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user),
+        })
+            .then(response => response.json())
+            .then((Message) => {
+                $("#close-button-update-modal").click();
+                alert(Message);
+                getAllUsers();
             })
-                .then(response => response.json())
-                .then((Message) => {
-                    firstnameTextBox.value = '';
-                    lastnameTextBox.value = '';
-                    emailTextBox.value = '';
-                    alert(Message);
-                    getAllUsers();
-                })
-                .catch(error => console.error('Unable to update users!', error));
-        }
+            .catch(error => console.error('Unable to update users!', error));
+    }
+}
+
+function isAdminCheck(isAdminCheckBox) {
+    if (isAdminCheckBox.checked) {
+        return true;
+    }
+    return false;
 }
 
 function isEmailValid(email) {
@@ -67,7 +77,7 @@ function validUser(user) {
     }
 
 
-    if (isFirstNamey(user.firstname)) {
+    if (isFirstName(user.firstname)) {
         check++;
     }
 
@@ -76,7 +86,14 @@ function validUser(user) {
         check++;
     }
 
-    if (check === 3) {
+    if (validateCardNumber(user.cardNb)) {
+        check++;
+    }
+
+    if (isValidNumber(user.phoneNb)) {
+        check++;
+    }
+    if (check === 5) {
         return true;
     }
 
@@ -84,8 +101,47 @@ function validUser(user) {
 
 }
 
+function validateCardNumber(number) {
+    var regex = new RegExp("^[0-9]{16}$");
+    if (!regex.test(number)) {
+        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
+        return false;
+    }
+    if (luhnCheck(number) === true)
+        document.getElementById('user-cardNb-error').innerHTML = "";
+    else
+        document.getElementById('user-cardNb-error').innerHTML = "The card number is not valid!!";
+    return luhnCheck(number);
+}
+
+function luhnCheck(val) {
+    var sum = 0;
+    for (var i = 0; i < val.length; i++) {
+        var intVal = parseInt(val.substr(i, 1));
+        if (i % 2 == 0) {
+            intVal *= 2;
+            if (intVal > 9) {
+                intVal = 1 + (intVal % 10);
+            }
+        }
+        sum += intVal;
+    }
+    return (sum % 10) == 0;
+}
+
+function isValidNumber(phoneNumber) {
+    if (phoneNumber.length === 10) {
+        document.getElementById('user-phoneNb-error').innerHTML = "";
+        return true;
+    }
+    document.getElementById('user-phoneNb-error').innerHTML = "The phone number is not valid!!";
+    return false;
+}
+
 function resetUserErrorText() {
     document.getElementById("user-firstname-error").innerHTML = "";
     document.getElementById("user-lastname-error").innerHTML = "";
     document.getElementById("user-email-error").innerHTML = "";
+    document.getElementById("user-phoneNb-error").innerHTML = "";
+    document.getElementById("user-cardNb-error").innerHTML = "";
 }

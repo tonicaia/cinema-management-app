@@ -39,6 +39,8 @@ window.operateEvents = {
         $('#user-firstname').val(row.FirstName);
         $('#user-lastname').val(row.LastName);
         $('#user-email').val(row.Email);
+        $('#user-phoneNb').val(row.PhoneNb);
+        $('#user-cardNb').val(row.CardNb);
         resetUserErrorText();
     },
     'click .removeUser': function (e, value, row, index) {

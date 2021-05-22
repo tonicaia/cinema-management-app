@@ -118,12 +118,11 @@ namespace CineM8.DAL
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "update Users set FirstName = @firstname , LastName = @lastname, email = @email, pass = @pass, phoneNumber = @phoneNumber, cardNumber = @cardNumber, isAdmin = @isAdmin where userID = @id";
+                comm.CommandText = "update Users set FirstName = @firstname , LastName = @lastname, email = @email, phoneNumber = @phoneNumber, cardNumber = @cardNumber, isAdmin = @isAdmin where userID = @id";
                 comm.Parameters.AddWithValue("@id", id);
                 comm.Parameters.AddWithValue("@FirstName", user.FirstName);
                 comm.Parameters.AddWithValue("@LastName", user.LastName);
                 comm.Parameters.AddWithValue("@email", user.Email);
-                comm.Parameters.AddWithValue("@pass", user.Password);
                 comm.Parameters.AddWithValue("@phoneNumber", user.PhoneNb);
                 comm.Parameters.AddWithValue("@cardNumber", user.CardNb);
                 comm.Parameters.AddWithValue("@isAdmin", user.IsAdmin);

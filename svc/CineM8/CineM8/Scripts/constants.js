@@ -30,6 +30,8 @@ window.onload = function init() {
         const myReservationsTab = document.getElementById('myReservationsTab');
         myReservationsTab.style = "visibility:visible";
         logout.style = "visibility:visible";
+        const myReservations = document.getElementById('myReservations');
+        myReservations.href = `reservations/show/${loggedInUser.Id}`;
     }
     if (isAdmin === 'true' || isAdmin == true) {
         document.getElementById("admin-tab").style.visibility = "visible";

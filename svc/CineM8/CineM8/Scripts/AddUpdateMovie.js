@@ -33,7 +33,7 @@ function AddUpdateMovie() {
                     nameTextBox.value = '';
                     descriptionTextArea.value = '';
                     lengthTextBox.value = '';
-                    imageURL.value = '';
+                    imageURLTextBox.value = '';
                     alert(Message);
                     getAllMovies();
                 })
@@ -54,7 +54,9 @@ function AddUpdateMovie() {
                     nameTextBox.value = '';
                     descriptionTextArea.value = '';
                     lengthTextBox.value = '';
-                    imageURL.value = '';
+                    imageURLTextBox.value = '';
+                    const closeButton = document.querySelector('#close-button-movie-movie');
+                    closeButton.click();
                     alert(Message);
                     getAllMovies();
                 })
@@ -144,7 +146,6 @@ function isRunningCheck(isRunningCheckBox) {
     if (isRunningCheckBox.checked) {
         return true;
     }
-
     return false;
 }
 

@@ -6,63 +6,107 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/lib/twitter-bootstrap/css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/home.css">
     <link rel="stylesheet" href="~/Content/movie.css">
     <link rel="stylesheet" href="~/Content/Register.css">
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container" style="margin: 0">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        @Html.ActionLink("CineM8", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-      </div>
-      <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-              <li>@Html.ActionLink("Prices", "Index", "Prices", new { area = "" }, null)</li>
-              <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
-              <!--<li id="myReservationsTab" style="visibility:hidden">@Html.ActionLink("Reservations", "Index", "Reservation", new { area = "" }, null)</li>-->
-              <li id="logout" style="visibility: hidden;"><a type="button" id="logoutButton" class="logoutButton" href="#" style="color:white;"> Logout </a></li>
-              <li id="myReservationsTab" style="visibility: hidden;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
-          </ul>
-        <ul class="nav navbar-nav" style="float:right;">
-          <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
-        </ul>
-      </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container" style="margin: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("CineM8", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Prices", "Index", "Prices", new { area = "" }, null)</li>
+                    <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
+                    <!--<li id="myReservationsTab" style="visibility:hidden">@Html.ActionLink("Reservations", "Index", "Reservation", new { area = "" }, null)</li>-->
+                    <li id="myReservationsTab" style="visibility: hidden;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
+                </ul>
+                <ul class="nav navbar-nav" style="float:right;">
+                    <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
+                    <li id="logout" style="visibility: hidden;"><a type="button" id="logoutButton" class="logoutButton" href="#" style="color:white;"> Logout </a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="container body-content">
-    @RenderBody()
-    <hr />
-    <footer>
-      <p>&copy; @DateTime.Now.Year - Proiect II</p>
-    </footer>
-  </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Proiect II</p>
+        </footer>
+    </div>
 
-  @Scripts.Render("~/bundles/jquery")
-  @Scripts.Render("~/bundles/bootstrap")
-  @Scripts.Render("~/bundles/twiter-bootstrap")
-  @Scripts.Render("~/Scripts/admin.js")
-  @Scripts.Render("~/Scripts/bootstrap-table.js")
-  @Scripts.Render("~/Scripts/home.js")
-  @Scripts.Render("~/Scripts/constants.js")
-  @Scripts.Render("~/Scripts/register.js")
-  @Scripts.Render("~/Scripts/login.js")
-  @Scripts.Render("~/Scripts/AddUpdateMovie.js")
-  @Scripts.Render("~/Scripts/UpdateUser.js")
-  @Scripts.Render("~/Scripts/api.js")
-  @Scripts.Render("~/Scripts/AddHall.js")
-  @Scripts.Render("~/Scripts/AddPrice.js")
-  @Scripts.Render("~/Scripts/movie.js")
-  @RenderSection("scripts", required: false)
+    <!-- LOGIN MODAL-->
+    <!-- Modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">LOGIN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="white-panel">
+                        <div class="login-show" style="margin:auto;width:50%;text-align:center;">
+                            <div class="input-group flex-nowrap" style="width:100%;">
+                                <span class="input-group-text" id="addon-wrapping"></span>
+                                <input type="text" class="form-control" id="username-login-form" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <br />
+                            <div class="input-group flex-nowrap" style="width:100%;">
+                                <span class="input-group-text" id="addon-wrapping"></span>
+                                <input type="password" class="form-control" id="password-login-form" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <br />
+                            <div id="register-option-redirect">
+                                Don't have an account? <a href="/Register">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger" id="login-modal-error"></div>
+                <div class="modal-footer">
+                    <button type="button" id="close-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="login-button" class="btn btn-primary" onclick="loginUser()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- END LOGIN MODAL -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/twiter-bootstrap")
+    @Scripts.Render("~/Scripts/admin.js")
+    @Scripts.Render("~/Scripts/bootstrap-table.js")
+    @Scripts.Render("~/Scripts/home.js")
+    @Scripts.Render("~/Scripts/constants.js")
+    @Scripts.Render("~/Scripts/register.js")
+    @Scripts.Render("~/Scripts/login.js")
+    @Scripts.Render("~/Scripts/AddUpdateMovie.js")
+    @Scripts.Render("~/Scripts/UpdateUser.js")
+    @Scripts.Render("~/Scripts/api.js")
+    @Scripts.Render("~/Scripts/AddHall.js")
+    @Scripts.Render("~/Scripts/AddPrice.js")
+    @Scripts.Render("~/Scripts/movie.js")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

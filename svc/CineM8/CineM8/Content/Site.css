@@ -37,3 +37,7 @@ textarea {
         font-style: italic;
         margin: 0 0 30px;
  }
+
+#login-modal-error{
+    text-align:center;
+}
