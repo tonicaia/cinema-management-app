@@ -45,31 +45,46 @@ function getHall() {
 getHall();
 
 submitButton.addEventListener("click", function () {
-  console.log(seatsReserved);
+  if (sessionStorage.currentUserId) {
+    console.log(seatsReserved);
 
-  seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
+    seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
 
-  console.log(seatsBits);
+    console.log(seatsBits);
+    let userId = sessionStorage.currentUserId;
+    let movieId = document.getElementById('id-number').innerHTML;
+    console.log(userId);
+    console.log(movieId);
 
-  const reservation = {
-    userId: 4,
-    movieId: 2,
-    cinemaHallId: 3,
-    numberOfSeats: seatsReserved.length,
-    seatsNumbers: seatsBits.toString(),
-    startTime: "2021-01-01 12:00:00",
-    endTime: "2021-01-01 12:00:00"
-  };
+    let reservation = {
+      userId: userId,
+      movieId: movieId,
+      cinemaHallId: 3,
+      numberOfSeats: seatsReserved.length,
+      seatsNumbers: seatsBits.toString(),
+      startTime: "2021-01-01 12:00:00",
+      endTime: "2021-01-01 12:00:00"
+    };
 
-  fetch('https://localhost:44300/api/reservation/PostNewReservation', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(reservation),
-  }).then(response => response.json())
-    .catch(error => console.error('Unable to insert reservation!', error));
+    console.log(reservation);
+
+    fetch('https://localhost:44300/api/reservation/PostNewReservation', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reservation)
+    }).then(response => response.json())
+      .catch(error => console.error('Unable to insert reservation!', error));
+
+    alert('Success! See you at the cinema!');
+    for (let i = 0; i < allSeats; i++) {
+      seatsBits[i] = 0;
+    }
+  } else {
+    alert('You must be logged in for creating a reservation');
+  }
 });
 
 

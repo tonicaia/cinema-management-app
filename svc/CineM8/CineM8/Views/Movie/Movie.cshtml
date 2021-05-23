@@ -6,8 +6,10 @@
 
 <div class="parent">
 
+  <div id="id-number" style="display: none">@Model.Id</div>
+
     <div class="div1">
-      <h1>@Model.Name</h1>
+      <h1 id="movie-name">@Model.Name</h1>
 
       <img style="width:300px;height:460px" src="@Model.ImageURL" />
     </div>
