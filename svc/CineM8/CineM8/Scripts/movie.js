@@ -5,56 +5,104 @@ const submitButton = document.getElementById('submitButton');
 const dateDropdown = document.getElementById('dropdown-content');
 const video = document.getElementById('iframe-d');
 
+String.prototype.replaceAt = function (index, replacement) {
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
 let allSeats = [];
-let seatsBits = [];
+let seatsBits = '';
 let selectedDate = '';
 let endTimeInObj = '';
+let seatsOccupied = '';
+
+let movieId = window.location.href.slice(36);
+let urlToGetAllReservations = `https://localhost:44300/api/reservation/GetOccupiedSeatsForMovie/${movieId}`;
+
+function getSeatsOccupied() {
+  fetch(urlToGetAllReservations, {
+    method: 'Get'
+  })
+    .then(response => response.json())
+    .then(data => seatsOccupied = data)
+    .then(() => console.log(seatsOccupied))
+}
+
+getSeatsOccupied();
 
 const places = document.getElementById('places');
 
 function getHall() {
-  fetch('https://localhost:44300/api/halls/GetHall', {
-    method: 'Get',
+  fetch(urlToGetAllReservations, {
+    method: 'Get'
   })
     .then(response => response.json())
-    .then(data => allSeats = data[1].Capacity)
+    .then(data => seatsOccupied = data)
+    .then(() => console.log('fetch pe seats: ' + seatsOccupied))
     .then(() => {
-      for (let i = 0; i < allSeats; i++) {
-        seatsBits.push(0);
-      }
-    })
-    .then(() => {
-      let seatIndex = 1;
-      let stopIndex = 11;
-      for (let i = 1; i <= 8; i++) {
-        places.innerHTML += `
+      fetch('https://localhost:44300/api/halls/GetHall', {
+        method: 'Get',
+      })
+        .then(response => response.json())
+        .then(data => allSeats = data[1].Capacity)
+        .then(() => {
+          console.log('fetch pe getHall')
+          for (let i = 0; i < allSeats; i++) {
+            //seatsBits.push(0);
+            seatsBits += 0;
+          }
+        })
+        .then(() => {
+          let seatIndex = 1;
+          let stopIndex = 11;
+          for (let i = 1; i <= 8; i++) {
+            places.innerHTML += `
           <div class="row" id="row${i}">
         `;
-        let row = document.getElementById('row' + i);
+            let row = document.getElementById('row' + i);
 
-        for (let i = seatIndex; i <= stopIndex; i++) {
-          row.innerHTML += `
-          <div class="seat">${i}</div>
+            for (let i = seatIndex; i <= stopIndex; i++) {
+              row.innerHTML += `
+          <div class="seat" id="seat${i}">${i}</div>
         `;
-          seatIndex++;
-        }
-        places.innerHTML += `
+              seatIndex++;
+            }
+            places.innerHTML += `
           </div>
         `;
-        stopIndex += 11;
-      }
+            stopIndex += 11;
+          }
+        })
+        .then(() => {
+          console.log('OccupiedSeats' + seatsOccupied);
+          //seatsOccupied.forEach(seat => {
+          //  index++;
+          //  document.getElementById('seat' + index).classList.add('occupied');
+          //})
+          for (let i = 1; i <= allSeats; i++) {
+            if (seatsOccupied.slice(i - 1, i) == 1) {
+              document.getElementById('seat' + i).classList.add('occupied');
+            }
+            
+          }
+        })
     })
+  
 }
 
 getHall();
 
 submitButton.addEventListener("click", function () {
   if (sessionStorage.currentUserId && selectedDate !== '') {
-    console.log(seatsReserved);
+  console.log(seatsReserved);
 
-    seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
+    //seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
+  seatsReserved.forEach(seat => {
+    let removedOne = seatsBits.replaceAt(seat - 1, 1).slice(0, seat);
+    let removedTwo = seatsBits.slice(seat);
+    seatsBits = removedOne + removedTwo;
+  });
 
-    console.log(seatsBits);
+  console.log(seatsBits);
     let userId = sessionStorage.currentUserId;
     let movieId = document.getElementById('id-number').innerHTML;
     console.log(userId);
@@ -65,7 +113,7 @@ submitButton.addEventListener("click", function () {
       movieId: movieId,
       cinemaHallId: 3,
       numberOfSeats: seatsReserved.length,
-      seatsNumbers: seatsBits.toString(),
+      seatsNumbers: seatsBits,
       startTime: selectedDate,
       endTime: endTimeInObj
     };
