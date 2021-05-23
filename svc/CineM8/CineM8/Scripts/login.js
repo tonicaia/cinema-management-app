@@ -11,7 +11,7 @@ function loginUser() {
         password: passwordTextbox.value.trim()
     };
 
-    fetch(USERS_URL + "/login", {
+    fetch(window.location.origin +"/" + USERS_URL + "/login", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

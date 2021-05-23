@@ -21,7 +21,7 @@ namespace CineM8.Controllers
 
 
         [HttpGet]
-        [Route("GetReservationForMovie")]
+        [Route("GetReservationForMovie/{movieId}")]
         public JsonResult<List<Reservation>> GetAllReservationsForMovie(int movieId)
         {
 
@@ -30,6 +30,41 @@ namespace CineM8.Controllers
             reservations = reservationDAL.GetAllReservationsForMovie(movieId);
             dBConnect.CloseConnection();
             return Json<List<Reservation>>(reservations);
+        }
+
+        [HttpGet]
+        [Route("GetOccupiedSeatsForMovie/{movieId}")]
+        public JsonResult<string> GetOccupiedSeatsForMovie(int movieId)
+        {
+
+            List<Reservation> reservations = new List<Reservation>();
+            dBConnect.OpenConnection();
+            reservations = reservationDAL.GetAllReservationsForMovie(movieId);
+            dBConnect.CloseConnection();
+
+            if (reservations.Count > 0)
+            {
+                char[] result = reservations[0].SeatsNumbers.ToCharArray();
+                int i = 0;
+                foreach (Reservation r in reservations)
+                {
+                    foreach (char s in r.SeatsNumbers)
+                    {
+                        if (s == '1') { result[i] = '1'; }
+                        else if (s == '0')
+                        {
+                            if (result[i] != '1') { result[i] = '0'; }
+                        }
+                        else { continue; }
+                        i++;
+                    }
+                    i = 0;
+                }
+                return Json<string>(new string(result));
+
+            }
+
+            return Json<string>("0".ToString());
         }
 
         [HttpGet]
