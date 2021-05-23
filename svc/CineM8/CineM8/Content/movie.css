@@ -146,7 +146,7 @@ p.text {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr;
-  grid-column-gap: 50px;
+  grid-column-gap: 30rem;
   grid-row-gap: 0px;
   padding-bottom: 10rem;
 }
@@ -166,6 +166,10 @@ p.text {
   
   align-items: flex-start;
   align-items: center;
+}
+
+.iframe-d {
+    margin-bottom: 4rem;
 }
 
 /* Dropdown Button */

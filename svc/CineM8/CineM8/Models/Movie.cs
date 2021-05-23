@@ -1,4 +1,4 @@
-﻿namespace CineM8.Models
+namespace CineM8.Models
 {
     public class Movie
     {
@@ -8,14 +8,16 @@
         private float length;
         private bool isRunning;
         private string imageURL;
+        private string videoURL;
 
-        public Movie(string name, string description, float length, bool isRunning, string imageURL )
+    public Movie(string name, string description, float length, bool isRunning, string imageURL, string videoURL)
         {
             this.name = name;
             this.description = description;
             this.length = length;
             this.isRunning = isRunning;
             this.imageURL = imageURL;
+            this.videoURL = videoURL;
 
         }
     
@@ -53,6 +55,12 @@
         {
             get => imageURL;
             set => imageURL = value;
+        }
+
+        public string VideoURL
+        {
+            get => videoURL;
+            set => videoURL = value;
         }
     }
 }

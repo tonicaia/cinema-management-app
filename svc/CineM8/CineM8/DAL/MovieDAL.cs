@@ -1,4 +1,4 @@
-﻿using CineM8.Models;
+using CineM8.Models;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,8 @@ namespace CineM8.DAL
                     float movieLength = float.Parse(dr["MovieLength"].ToString());
                     bool isRunning = Convert.ToBoolean(dr["MovieIsRunning"].ToString());
                     string imageURL = dr["ImageURL"].ToString();
-                    Movie movie = new Movie(movieName, description, movieLength, isRunning, imageURL);
+                    string videoURL = dr["VideoURL"].ToString();
+                    Movie movie = new Movie(movieName, description, movieLength, isRunning, imageURL, videoURL);
                     movie.Id = Convert.ToInt32(dr["movieId"]);
 
                     movies.Add(movie);
@@ -56,12 +57,13 @@ namespace CineM8.DAL
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "INSERT INTO Movies(MovieName, MovieDescription, MovieLength, MovieIsRunning, ImageURL) VALUES(@MovieName, @MovieDescription, @MovieLength, @MovieIsRunning, @ImageURL)";
+                comm.CommandText = "INSERT INTO Movies(MovieName, MovieDescription, MovieLength, MovieIsRunning, ImageURL, VideoURL) VALUES(@MovieName, @MovieDescription, @MovieLength, @MovieIsRunning, @ImageURL, @VideoURL)";
                 comm.Parameters.AddWithValue("@MovieName", movie.Name);
                 comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
                 comm.Parameters.AddWithValue("@MovieLength", movie.Length);
                 comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
                 comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
+                comm.Parameters.AddWithValue("@VideoURL", movie.VideoURL);
                 try
                 {
                     comm.ExecuteNonQuery();
@@ -96,7 +98,8 @@ namespace CineM8.DAL
                 float movieLength = float.Parse(dr["MovieLength"].ToString());
                 bool isRunning = Convert.ToBoolean(dr["MovieIsRunning"].ToString());
                 string imageURL = dr["ImageURL"].ToString();
-                Movie movie = new Movie(movieName, description, movieLength, isRunning, imageURL);
+                string videoURL = dr["VideoURL"].ToString();
+                Movie movie = new Movie(movieName, description, movieLength, isRunning, imageURL, videoURL);
                 movie.Id = id;
 
                 movies.Add(movie);
@@ -109,13 +112,14 @@ namespace CineM8.DAL
             using (MySqlConnection connection = new MySqlConnection(DBConnect.conString))
             {
                 MySqlCommand comm = DBConnect.conn.CreateCommand();
-                comm.CommandText = "update Movies set MovieName = @MovieName , MovieDescription = @MovieDescription, MovieLength = @MovieLength, MovieIsRunning = @MovieIsRunning, ImageURL = @ImageURL where movieID = @id";
+                comm.CommandText = "update Movies set MovieName = @MovieName , MovieDescription = @MovieDescription, MovieLength = @MovieLength, MovieIsRunning = @MovieIsRunning, ImageURL = @ImageURL, VideoURL = @VideoURL where movieID = @id";
                 comm.Parameters.AddWithValue("@id", id);
                 comm.Parameters.AddWithValue("@MovieName", movie.Name);
                 comm.Parameters.AddWithValue("@MovieDescription", movie.Description);
                 comm.Parameters.AddWithValue("@MovieLength", movie.Length);
                 comm.Parameters.AddWithValue("@MovieIsRunning", movie.IsRunning);
                 comm.Parameters.AddWithValue("@ImageURL", movie.ImageURL);
+                comm.Parameters.AddWithValue("@VideoURL", movie.VideoURL);
                 try
                 {
                     comm.ExecuteNonQuery();

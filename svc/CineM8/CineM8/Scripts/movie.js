@@ -3,6 +3,7 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const submitButton = document.getElementById('submitButton');
 const dateDropdown = document.getElementById('dropdown-content');
+const video = document.getElementById('iframe-d');
 
 let allSeats = [];
 let seatsBits = [];
@@ -85,8 +86,10 @@ submitButton.addEventListener("click", function () {
     for (let i = 0; i < allSeats; i++) {
       seatsBits[i] = 0;
     }
-  } else {
+  } else if (!sessionStorage.currentUserId) {
     alert('You must be logged in for creating a reservation');
+  } else if (!selectedDate) {
+    alert('You must select an date and time for the movie');
   }
 });
 

@@ -11,21 +11,17 @@ function fillMoviesList() {
         <div class="image">
           <img src="${movie.ImageURL}" class="movie-image" style="width:200px;height:300px" />
         </div>
-            <a class="btn btn-primary" href="https://localhost:44300/movies/show/${movie.Id}">Rezerva</a>
+            <a class="btn btn-primary" id="rezerva-button${movie.Id}" href="https://localhost:44300/movies/show/${movie.Id}">Rezerva</a>
        </div>
       `;
     }
   });
-}
 
-//$('.card').hover(function () {
-//  console.log('COAIELE MELES CA STANCA:' + movie.Name);
-//  if ($(this).hasClass("active")) {
-//    $('.card .bottom').slideUp(function () {
-//      $('.card').removeClass("active");
-//    })
-//  } else {
-//    $('.card').addClass("active");
-//    $('.card .bottom').stop().slideDown();
-//  }
-//})
+  //if (!sessionStorage.currentUserId) {
+  //  movies.forEach(movie => {
+  //    document.getElementById('rezerva-button' + movie.Id).style.display = "none";
+  //  }
+  //  )
+  //}
+  
+}

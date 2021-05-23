@@ -1,6 +1,6 @@
 @model CineM8.Models.Movie
 @{
-  ViewBag.Title = "Movie";
+    ViewBag.Title = "Movie";
 
 }
 
@@ -19,6 +19,11 @@
     </div>
 
 </div>
+
+<div class="iframe-d">
+  <iframe width="470" height="315" src="@Model.VideoURL"></iframe>
+</div>
+
 
 <div class="dropdown">
   <button class="dropbtn">Date and hour</button>
