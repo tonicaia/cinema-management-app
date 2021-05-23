@@ -2,9 +2,12 @@ const container = document.querySelector('.container2');
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const submitButton = document.getElementById('submitButton');
+const dateDropdown = document.getElementById('dropdown-content');
 
 let allSeats = [];
 let seatsBits = [];
+let selectedDate = '';
+let endTimeInObj = '';
 
 const places = document.getElementById('places');
 
@@ -45,7 +48,7 @@ function getHall() {
 getHall();
 
 submitButton.addEventListener("click", function () {
-  if (sessionStorage.currentUserId) {
+  if (sessionStorage.currentUserId && selectedDate !== '') {
     console.log(seatsReserved);
 
     seatsReserved.forEach(seat => seatsBits[seat - 1] = 1);
@@ -62,8 +65,8 @@ submitButton.addEventListener("click", function () {
       cinemaHallId: 3,
       numberOfSeats: seatsReserved.length,
       seatsNumbers: seatsBits.toString(),
-      startTime: "2021-01-01 12:00:00",
-      endTime: "2021-01-01 12:00:00"
+      startTime: selectedDate,
+      endTime: endTimeInObj
     };
 
     console.log(reservation);
@@ -116,4 +119,24 @@ container.addEventListener('click', e => {
     }
   }
   updateSelectedCount();
+});
+
+dateDropdown.addEventListener('click', e => {
+  console.log(e.target.innerHTML);
+  selectedDate = e.target.innerHTML;
+
+  let hour = selectedDate.slice(11, 13);
+  let newHour = +hour + 2;
+  let endTime = selectedDate.slice(0, 11);
+  endTime = endTime + newHour.toString() + ':00:00';
+  endTimeInObj = endTime;
+
+  let dateElement = document.getElementById('movie-date');
+  let date = selectedDate.slice(0, 10);
+  dateElement.innerHTML = `Movie date: ${date}`;
+
+  let timeElement = document.getElementById('movie-time');
+  let startTime = selectedDate.slice(11, 19);
+  let endTimeInFct = endTime.slice(11, 19);
+  timeElement.innerHTML = `from ${startTime} to ${endTimeInFct}`;
 });
