@@ -29,8 +29,7 @@ function UpdateUser() {
         })
             .then(response => response.json())
             .then((Message) => {
-                $("#close-button-update-modal").click();
-                alert(Message);
+                $("#close-button-user-modal").click();
                 getAllUsers();
             })
             .catch(error => console.error('Unable to update users!', error));

@@ -8,13 +8,15 @@ function AddUpdateMovie() {
     const lengthTextBox = document.getElementById('movie-length');
     const isRunningCheckBox = document.getElementById('movie-isRunning');
     const imageURLTextBox = document.getElementById('movie-imageURL');
+    const videoURLTextBox = document.getElementById('movie-VideoURL');
 
     const movie = {
         name: nameTextBox.value.trim(),
         description: descriptionTextArea.value.trim(),
         length: lengthTextBox.value.trim(),
         isRunning: isRunningCheck(isRunningCheckBox),
-        imageURL: imageURLTextBox.value.trim()
+        imageURL: imageURLTextBox.value.trim(),
+        videoURL: videoURLTextBox.value.trim()
     };
 
     //Add movie if doUpdate is false and update movie if doUpdate is true
@@ -34,6 +36,7 @@ function AddUpdateMovie() {
                     descriptionTextArea.value = '';
                     lengthTextBox.value = '';
                     imageURLTextBox.value = '';
+                    videoURLTextBox.value = '';
                     alert(Message);
                     getAllMovies();
                 })
@@ -55,9 +58,9 @@ function AddUpdateMovie() {
                     descriptionTextArea.value = '';
                     lengthTextBox.value = '';
                     imageURLTextBox.value = '';
-                    const closeButton = document.querySelector('#close-button-movie-movie');
+                    videoURLTextBox.value = '';
+                    const closeButton = document.querySelector('#close-button-modal-movie');
                     closeButton.click();
-                    alert(Message);
                     getAllMovies();
                 })
                 .catch(error => console.error('Unable to update movie!', error));
@@ -115,6 +118,7 @@ function validURL(imageURL) {
         return url.protocol === "http:" || url.protocol === "https:";
 }
 
+
 function validMovie(movie)
 {
     if (isNumber(movie.length)) {
@@ -134,7 +138,15 @@ function validMovie(movie)
     {
         document.getElementById("movie-url-error").innerHTML = "ImageURL is not valid!!";
     }
-    if (check === 4) {
+    if (validURL(movie.videoURL)) {
+        document.getElementById("movie-videourl-error").innerHTML = "";
+        check++;
+    }
+    else
+    {
+        document.getElementById("movie-videourl-error").innerHTML = "VideoURL is not valid!!";
+    }
+    if (check === 5) {
         return true;
     }
 
@@ -154,6 +166,7 @@ function resetText() {
     $('#movie-description').val('');
     $('#movie-length').val('');
     $('#movie-imageURL').val('');
+    $('#movie-VideoURL').val('');
 }
 
 function resetMovieErrorText() {
@@ -161,4 +174,5 @@ function resetMovieErrorText() {
     document.getElementById("movie-length-error").innerHTML = "";
     document.getElementById("movie-name-error").innerHTML = "";
     document.getElementById("movie-description-error").innerHTML = "";
+    document.getElementById("movie-videourl-error").innerHTML = "";
 }

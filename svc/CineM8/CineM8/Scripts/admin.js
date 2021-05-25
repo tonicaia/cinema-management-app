@@ -41,6 +41,7 @@ window.operateEvents = {
         $('#user-email').val(row.Email);
         $('#user-phoneNb').val(row.PhoneNb);
         $('#user-cardNb').val(row.CardNb);
+        row.IsAdmin == true ? $('#user-isAdmin').prop("checked", true) : $('#user-isAdmin').prop("checked", false);
         resetUserErrorText();
     },
     'click .removeUser': function (e, value, row, index) {
@@ -120,6 +121,8 @@ window.operateMovieEvents = {
         $('#movie-description').val(row.Description);
         $('#movie-length').val(row.Length);
         $('#movie-imageURL').val(row.ImageURL);
+        $('#movie-VideoURL').val(row.VideoURL);
+        row.IsRunning == true ? $('#movie-isRunning').prop("checked", true) : $('#movie-isRunning').prop("checked", false);
         resetMovieErrorText();
     },
     'click .removeMovie': function (e, value, row, index) {
