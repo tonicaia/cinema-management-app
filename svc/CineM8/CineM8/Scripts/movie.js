@@ -137,7 +137,7 @@ submitButton.addEventListener("click", function () {
   } else if (!sessionStorage.currentUserId) {
     alert('You must be logged in for creating a reservation');
   } else if (!selectedDate) {
-    alert('You must select an date and time for the movie');
+    alert('You must select a date and time for the movie');
   }
 });
 
