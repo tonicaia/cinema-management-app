@@ -54,22 +54,24 @@ function getHall() {
         .then(() => {
           let seatIndex = 1;
           let stopIndex = 11;
-          for (let i = 1; i <= 8; i++) {
-            places.innerHTML += `
+            for (let i = 1; i <= 8; i++) {
+                if (places != null) {
+                    places.innerHTML += `
           <div class="row" id="row${i}">
         `;
-            let row = document.getElementById('row' + i);
+                    let row = document.getElementById('row' + i);
 
-            for (let i = seatIndex; i <= stopIndex; i++) {
-              row.innerHTML += `
+                    for (let i = seatIndex; i <= stopIndex; i++) {
+                    row.innerHTML += `
           <div class="seat" id="seat${i}">${i}</div>
         `;
-              seatIndex++;
-            }
-            places.innerHTML += `
+                    seatIndex++;
+                }
+                        places.innerHTML += `
           </div>
         `;
-            stopIndex += 11;
+                        stopIndex += 11;
+            }
           }
         })
         .then(() => {
@@ -133,7 +135,7 @@ submitButton.addEventListener("click", function () {
     alert('Success! See you at the cinema!');
     for (let i = 0; i < allSeats; i++) {
       seatsBits[i] = 0;
-    }
+      }
   } else if (!sessionStorage.currentUserId) {
     alert('You must be logged in for creating a reservation');
   } else if (!selectedDate) {

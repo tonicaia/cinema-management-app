@@ -54,7 +54,6 @@ function loginUser() {
 }
 let loginButton = document.getElementsByClassName("loginButton");
 const logoutButton = document.getElementById('logoutButton');
-console.log(logoutButton);
 
 
 function changeLoginButton(loggedInUser) {
