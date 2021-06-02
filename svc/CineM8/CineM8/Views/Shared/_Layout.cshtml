@@ -18,7 +18,7 @@
 <body class="container body-content">
     @RenderBody()
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container" style="margin: 0">
+        <div class="container" id="containerNavbar">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -32,19 +32,19 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Prices", "Index", "Prices", new { area = "" }, null)</li>
-                    <li id="admin-tab" style="visibility:hidden">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
-                    <li id="myReservationsTab" style="visibility: hidden;"><a type="button" id="myReservations" class="myReservations" href="#" style="color:white;"> My Reservations </a></li>
+                    <li id="admin-tab">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, null)</li>
+                    <li id="myReservationsTab"><a type="button" id="myReservations" class="myReservations" href="#"> My Reservations </a></li>
                 </ul>
-                <ul class="nav navbar-nav" style="float:right;">
-                    <li style="background-color:rgba(255, 10, 10,0.8);"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal" style="color:white;"> Login </a></li>
-                    <li id="logout" style="visibility: hidden;"><a type="button" id="logoutButton" class="logoutButton" href="#" style="color:white;"> Logout </a></li>
+                <ul class="nav navbar-nav" id="listNavBar">
+                    <li id="listItemLoginBtn"><a type="button" id="loginBtn" class="loginButton" href="#login-modal" data-toggle="modal"> Login </a></li>
+                    <li id="logout"><a type="button" id="logoutButton" class="logoutButton" href="#"> Logout </a></li>
                 </ul>
             </div>
         </div>
     </div>
     <hr />
     <footer>
-        <p>&copy; @DateTime.Now.Year - Proiect II</p>
+        <p>&copy; @DateTime.Now.Year - Proiect TD</p>
     </footer>
 
 
@@ -61,13 +61,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="white-panel">
-                        <div class="login-show" style="margin:auto;width:50%;text-align:center;">
-                            <div class="input-group flex-nowrap" style="width:100%;">
+                        <div class="login-show" id="loginShowModal">
+                            <div class="input-group flex-nowrap" id="inputGroupLoginModal">
                                 <span class="input-group-text" id="addon-wrapping"></span>
                                 <input type="text" class="form-control" id="username-login-form" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
                             </div>
                             <br />
-                            <div class="input-group flex-nowrap" style="width:100%;">
+                            <div class="input-group flex-nowrap" id="inputGroupLoginModal2">
                                 <span class="input-group-text" id="addon-wrapping"></span>
                                 <input type="password" class="form-control" id="password-login-form" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
                             </div>

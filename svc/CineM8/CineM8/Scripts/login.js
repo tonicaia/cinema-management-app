@@ -24,7 +24,7 @@ function loginUser() {
             // clear inputs values
             emailTextbox.value = '';
             passwordTextbox.value = '';
-            if (user) {
+            if (user) { // verify if match
                 // set SessionStorage for data to be persistent
                 sessionStorage.setItem('userFirstName', user.FirstName);
                 sessionStorage.setItem('userIsAdmin', user.IsAdmin);
@@ -45,7 +45,7 @@ function loginUser() {
                 $("#close-button").click();
             }
             else {
-                loginModalError.innerHTML = "Email and password don't match";
+                loginModalError.innerHTML = "Email and password don't match"; // show error label and do nothing
             }
 
         })
@@ -63,8 +63,8 @@ function changeLoginButton(loggedInUser) {
     loginButton[0].style.backgroundColor = "blue";
     loginButton[0].style.pointerEvents = "none";
     logoutButton.style = "display:block";
-    const myReservations = document.getElementById('myReservations');
-    myReservations.href = `/reservations/show/?userId=${loggedInUser.Id}`;
+    const myReservations = document.getElementById('myReservations'); // button for my reservations
+    myReservations.href = `/reservations/show/?userId=${loggedInUser.Id}`; // to return the view
 }
 
 

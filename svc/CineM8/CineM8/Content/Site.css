@@ -27,24 +27,25 @@ textarea {
     height: 50vh;
     width: 90vw;
 }
-.jumbotron h1 {
+
+    .jumbotron h1 {
         font-size: 70px;
         margin-bottom: 0;
-}
+    }
 
-.jumbotron p {
+    .jumbotron p {
         font-family: serif;
         font-size: 30px;
         font-style: italic;
         margin: 0 0 30px;
- }
+    }
 
-#login-modal-error{
-    text-align:center;
+#login-modal-error {
+    text-align: center;
 }
 
-#adminWrapper{
-    visibility:hidden;
+#adminWrapper {
+    visibility: hidden;
 }
 
 .buttonIcons {
@@ -58,7 +59,7 @@ textarea {
 }
 
 .removeIcon {
-    background: url("./img/trash-solid.svg");  
+    background: url("./img/trash-solid.svg");
 }
 
 .editIcon {
@@ -69,8 +70,8 @@ textarea {
     background: url("./img/eye-solid.svg");
     background-position: center !important;
     background-repeat: no-repeat !important;
-    width:20px;
-    height:10px;
+    width: 20px;
+    height: 10px;
 }
 
 .eyeSlashIcon {
@@ -79,4 +80,42 @@ textarea {
     background-repeat: no-repeat !important;
     width: 20px;
     height: 10px;
+}
+
+#admin-tab {
+    visibility: hidden;
+}
+
+#myReservationsTab {
+    visibility: hidden;
+}
+
+#logout {
+    visibility: hidden;
+}
+
+#listItemLoginBtn {
+    background-color: rgba(255, 10, 10,0.8);
+}
+
+#listNavBar {
+    float: right;
+}
+
+#loginShowModal {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+#inputGroupLoginModal, #inputGroupLoginModal2 {
+    width: 100%;
+}
+
+#loginBtn, #logoutButton, #myReservations {
+    color: white;
+}
+
+#containerNavbar {
+    margin: 0;
 }
