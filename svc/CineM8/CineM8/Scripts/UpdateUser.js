@@ -49,20 +49,22 @@ function isEmailValid(email) {
 }
 
 function isFirstName(firstName) {
-    if (!isEmpty(firstName)) {
+    const regex = /^[a-zA-Z ]{2,30}$/;
+    if (!isEmpty(firstName) && regex.test(firstName)) {
         document.getElementById('user-firstname-error').innerHTML = " ";
         return true;
     }
-    document.getElementById('user-firstname-error').innerHTML = "The firstname box should not be empty!!";
+    document.getElementById('user-firstname-error').innerHTML = "The firstname is not valid!!";
     return false;
 }
 
 function isLastName(lastName) {
-    if (!isEmpty(lastName)) {
+    const regex = /^[a-zA-Z ]{2,30}$/;
+    if (!isEmpty(lastName) && regex.test(lastName)) {
         document.getElementById('user-lastname-error').innerHTML = " ";
         return true;
     }
-    document.getElementById('user-lastname-error').innerHTML = "The lastname box should not be empty!!";
+    document.getElementById('user-lastname-error').innerHTML = "The lastname is not valid!!";
     return false;
 }
 

@@ -52,14 +52,13 @@ function addItem() {
         })
             .then(response => response.json())
             .then((Message) => {
-                addFirstNameTextbox.value = '';
-                addLastNameTextBox.value = '';
-                addEmailTextbox.value = '';
-                addPasswordTextbox.value = '';
-                confirmPasswordTextbox.value = '';
-                phoneNumberTextbox.value = '';
-                cardNumberTextbox.value = '';
-                document.location.href = '../';
+                if (Message === 'Failed!') {
+                    const emailError = document.getElementById('email-error');
+                    emailError.innerHTML = 'Email is already in use!';
+                }
+                else {
+                    document.location.href = '../';
+                }
             })
             .catch(error => console.error('Unable to add item.', error));
     }
@@ -93,11 +92,12 @@ function isValidPhoneNumberRegister(phoneNumber) {
 }
 
 function FirstNameisEmptyRegister(firstName) {
-    if (!isEmpty(firstName)) {
+    const regex = /^[a-zA-Z ]{2,30}$/;
+    if (!isEmpty(firstName) && regex.test(firstName)) {
         document.getElementById('firstname-error').innerHTML = "";
         return true;
     }
-    document.getElementById('firstname-error').innerHTML = "The firstname box should not be empty!!";
+    document.getElementById('firstname-error').innerHTML = "The firstname is not valid!!";
     return false;
 }
 
@@ -111,11 +111,12 @@ function PasswordNotValidRegister(password) {
 }
 
 function LastNameisEmptyRegister(lastName) {
-    if (!isEmpty(lastName)) {
+    const regex = /^[a-zA-Z ]{2,30}$/;
+    if (!isEmpty(lastName) && regex.test(lastName)) {
         document.getElementById('lastname-error').innerHTML = "";
         return true;
     }
-    document.getElementById('lastname-error').innerHTML = "The lastname box should not be empty!!";
+    document.getElementById('lastname-error').innerHTML = "The lastname is not valid!!";
     return false;
 }
 
